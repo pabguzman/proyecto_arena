@@ -1,12 +1,15 @@
-Tenemos ambYo recomiendo usar git por línea de comandos (básicamente porque es útil aprender a manejarse por terminal)
+Yo recomiendo usar git por línea de comandos (básicamente porque es útil aprender a manejarse por terminal)
 Entonces, las cosas principales que hay que saber:
-* Para entrar en la carpeta se usa cd ubicacion/del/directorio
+* Abrimos el programa GIT BASH
+* Para entrar en la carpeta de git se usa cd ubicacion/del/directorio (y para hacer los cambios, tienes que estar en esa carpeta)
 * Para comprobar si se han hecho cambios desde la ultima vez de usa la instrucción git status
-	* Si no ha cambiado nada, pondrá algo similar a que[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[3~[3~[3~[3~[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[ el mensaje pondrá algo como que no hay nada que hacer. Si otra persona ha cambiado algo, te avisará. 
-	* Para actualizar los cambios que ha hecho otra persona se usa la instrucción git pull
-[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[, una vez lo hagas tendrás la última versión
-	* En cambio[A[D[A[D[D[D[D[D[D[D[D[D[D	[D[D[D[D[D[D[D[D[B[3~[3~ * [3~En cambio si eres tú el que ha realizado cambios, primero tendrás que usar el comando git commit -m "mensaje", donde mensaje es el comentario que quieras hacer sobre la versión que has realizado. Tras esto puedes volver a usar git status para ver si lo estás haciendo bien
+	* Si no ha cambiado nada desde la última vez, el mensaje pondrá algo como que no hay nada que hacer. Si otra persona ha cambiado algo, te avisará. 
+	* Para actualizar los cambios que ha hecho otra persona se usa la instrucción git pull, una vez lo hagas tendrás la última versión
+* En cambio si eres tú el que ha realizado cambios, primero tendrás que usar el comando git commit -m "mensaje", 
+donde mensaje es el comentario que quieras hacer sobre la versión que has realizado. Tras esto puedes volver a usar git status para ver si lo estás haciendo bien
 * En este punto, tus cambios se habrán guardado en tu PC. Ahora hay que subirlo al servidor. Para ello se usa la instruccion git push origin
 	 * Si te da algún tipo de comentario con esto avisame ejejje
 
-Otra cosa interesante es cuando añadas un archivo a la carpeta, para que tenga efecto en git tienes que usar el comando git add (--all si es más de un archivo)[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C"archivo"[D.loquesea" (o --all si es más de un archivo). Tras esto, el commit correspondiente y el push. Si vuelves a hacer git status te dirá si lo estás haciendo bien o si te falta algo.
+Otra cosa interesante es cuando añadas un archivo a la carpeta, para que tenga efecto en git tienes que usar el comando 
+git add "archivo.loquesea" (o --all si es más de un archivo). Tras esto, el commit correspondiente y el push. 
+Si vuelves a hacer git status te dirá si lo estás haciendo bien o si te falta algo.
