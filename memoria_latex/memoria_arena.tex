@@ -1,0 +1,1798 @@
+\documentclass[12pt,a4paper]{article}
+
+%Opciones del texto
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\setlength{\parindent}{3em} %Sangría
+\setlength{\parskip}{0.4em} %Espaciado entre parrafos
+\renewcommand{\baselinestretch}{1.1}
+\usepackage[a4paper,total={6in, 9in}]{geometry}
+
+%Encabezado, pie de página
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead[\rightmark]{Sistemas Electrónicos Para Automatización}
+\rhead[\rightmark]{SinteTiva}
+\rfoot[]{\thepage} %Muestra la página
+
+
+%Bibliografía
+\bibliographystyle{unsrt}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+\urlstyle{same}
+
+
+%Fotos, gráficos
+\usepackage{tabularx, caption}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+
+%Símbolos
+\usepackage{eurosym} %Euro
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+
+%Añadir PDFs
+\usepackage{pdfpages} 
+
+%Comentarios
+\usepackage{verbatim} 
+
+%Código
+\usepackage{listings} 
+
+%Colores
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{xcolor} 
+\usepackage{color}
+%Colores definidos
+\definecolor{gray97}{gray}{.97}
+\definecolor{gray75}{gray}{.75}
+\definecolor{gray45}{gray}{.45}
+\definecolor{miverde}{rgb}{0,0.6,0}
+\definecolor{migris}{rgb}{0.5,0.5,0.5}
+\definecolor{mimalva}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+commentstyle=\color{miverde},    % Estilo de los comentarios
+frame=single,	                   % Añade un marco al código
+keywordstyle=\color{mimalva},       % estilo de las palabras clave
+rulecolor=\color{black},         % Si no se activa, el color del marco puede cambiar en los saltos de línea entre textos que sea de otro color, por ejemplo, los comentarios, que están en verde en este ejemplo
+backgroundcolor=\color{gray97},
+breaklines=true,                 % Activa el salto de línea automático
+%%stringstyle=\ttfamily,
+%%basicstyle=\small\ttfamily,
+%%showstringspaces = false,
+%%basicstyle=\small\ttfamily,
+}
+
+%WBS -> Árbol
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes,positioning,shadows,trees}
+
+\lstdefinestyle{customc}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  frame=L,
+  xleftmargin=\parindent,
+  language=C,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+}
+
+
+
+
+%Para poder poner tildes en el código
+\lstset{
+     literate=%
+         {á}{{\'a}}1
+         {í}{{\'i}}1
+         {é}{{\'e}}1
+         {ý}{{\'y}}1
+         {ú}{{\'u}}1
+         {ó}{{\'o}}1
+         {ě}{{\v{e}}}1
+         {š}{{\v{s}}}1
+         {č}{{\v{c}}}1
+         {ř}{{\v{r}}}1
+         {ž}{{\v{z}}}1
+         {ď}{{\v{d}}}1
+         {ť}{{\v{t}}}1
+         {ň}{{\v{n}}}1                
+         {ů}{{\r{u}}}1
+         {Á}{{\'A}}1
+         {Í}{{\'I}}1
+         {É}{{\'E}}1
+         {Ý}{{\'Y}}1
+         {Ú}{{\'U}}1
+         {Ó}{{\'O}}1
+         {Ě}{{\v{E}}}1
+         {Š}{{\v{S}}}1
+         {Č}{{\v{C}}}1
+         {Ř}{{\v{R}}}1
+         {Ž}{{\v{Z}}}1
+         {Ď}{{\v{D}}}1
+         {Ť}{{\v{T}}}1
+         {Ň}{{\v{N}}}1                
+         {Ů}{{\r{U}}}1    
+}
+
+\begin{document}
+
+
+
+\begin{titlepage} 
+%Estaría bien hacerla en word e incluir el PDF porque hacer portadas en LATEX es dificil.
+\includepdf{portada.pdf}
+
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\lstset{language=C++} 
+\section{SinteTiva}
+%Cosas a escribir
+En este proyecto se persigue realizar la implementación de un software de producción musical básico. Se utilizará el microcontrolador de Texas Instruments TM4C1294 junto a la pantalla FT800, acompañándolos de la placa de conexión que nos proporcionan desde el departamento de Electrónica.
+
+
+El objetivo es permitir escritura, almacenaje y posterior modificación de un total tres canciones distintas a de compás 4/4. Para ello, se dota a la interfaz de edición de una línea temporal dividida en 8 espacios de tiempo, la cual comprenderá la duración de un compás. Cada uno de los espacios, por tanto, corresponderá en tiempo a una corchea, dos espacios a una negra y así sucesivamente.
+
+
+%aqui se habla del menu de diseño
+Se debe poder escoger y alternar entre los siguientes tres instrumentos: piano, xilófono y bombo.
+%, correspondientes en la pantalla a tres botones distintos, identificados con los colores rojo, verde y azul respectivamente.  (creo que esto va en otro apartado)
+
+La escritura de una nota se realizará pulsando en la zona correspondiente de la pantalla y manteniéndose durante un segundo la pulsación. Para borrarla, el procedimiento será el mismo. No se podrán pintar en la misma columna de tiempo dos notas distintas, ya que el hardware que nos ocupa no es específico para producción musical. 
+
+Si se escogiera pintar dos o más espacios de la misma nota y el mismo instrumento, sonarán como una sola nota de mayor duración.
+
+
+%aqui del menu de reproducción
+La reproducción de la canción completa debe ser posible desde el menú de edición, dándose la opción de reproducir el compás que se esté editando, pero también desde un nuevo menú de reproducción, donde no será editable la misma.
+
+Se debe poder escoger el tempo de cada canción desde la interfaz de diseño. Así como el volumen se debe poder regular desde los botones del microcontrolador.
+
+
+La duración de las canciones es simbólica. Se perseguirá guardar 10 compases de cada canción, aunque el microcontrolador tenga más capacidad de almacenaje. Otro objetivo a perseguir es la modificación de cada una de ellas, así como su eliminación en cualquier momento. 
+
+
+Escogemos este proyecto para implementarlo en el TM4C1294 debido a las características de memoria que presenta (1 MB Flash; 256 KB SRAM; 6Kb EEPROM). Con estas características, la cantidad de información que se puede guardar escapa a las prioridades de un proyecto académico. Por esto, reafirmamos que nuestro trabajo es más una primera aproximación a una herramienta de producción musical. Somos conscientes de que es fácilmente ampliable, y está diseñado con esa intención.
+
+
+\section{Manual de usuario}
+\textbf{Pantalla de inicio}
+La primera interfaz que se encontrará en el sistema será una pantalla de inicio, la cual deberá pulsar para pasar al primer menú.
+%Foto de la primera parte
+
+\textbf{Menú de canciones}
+En el primer menú se ofrecen la selección de canciones a utilizar, pudiéndose escoger 3, si se pulsa el botón de una de las tres canciones se pasará a un nuevo menú correspondiente a la canción elegida.
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width=8cm]{menu0.jpeg}
+  \caption{Menú 0. Canciones a elegir.}
+  \label{fig:img1}
+\end{figure}
+
+\textbf{Menú de acciones en canción}
+En este menú se encontrarán los siguiente botones:
+\begin{itemize}
+\item Escribir: Este botón llevará a un nuevo menú que se explicará posteriormente. Si ya se ha escrito una canción completa, aparecerá el siguiente mensaje $Ya has escrito una cancion aqui$, que nos devolverá al menú de elección de canciones inicial tras pulsar el botón $OK$.
+\item Reproducir: Este botón reproducirá la canción en su totalidad, únicamente si se ha guardado alguna canción en ella, si no es así aparecerá un mensaje que dirá $No has guardado nada que ver aqui$, para salir de este mensaje se debe pulsar el botón de $OK$, que nos llevará al menú inicial de elección de canciones.
+\item Ver notas: Este botón nos llevará al mismo menú que el botón escribir con algunas diferencias, y es que en este caso no podremos modificar las notas ya establecidas, únicamente se podrá reproducir, un compás o la canción completa, ver todas las notas establecidas, y volver al menú anterior. Si no se hubiese guardado ninguna canción, nos saldría un mensaje al igual que en el botón $Reproducir$
+\item Cancelar: Este botón nos devuelve al menú de elección de canciones.
+\end{itemize}
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width=8cm]{menu1.jpeg}
+  \caption{Menú 1. Opciones en canción.}
+  \label{fig:img1}
+\end{figure}
+
+\textbf{Menú de creación musical}
+En este último menú se podrán componer canciones de un máximo de 7 compases, cada compás se verá por pantalla de la siguiente forma:
+%Foto
+
+Antes de comenzar la composición de la canción se debe elegir uno de los tres instrumentos disponibles: $PIANO$, $XILOFONO$ o $BOMBO$. Este instrumento se puede cambiar en cualquier momento, no teniendo que ser toda la canción compuesta con el mismo.
+
+Para la composición de la canción se dispone de una matriz en pantalla en la que cada fila corresponde a la nota escrita a su izquierda. Para seleccionar la nota que queremos tocar, se pulsará en pantalla el cuadrado de la matriz deseado, durante un segundo, y este pasará a pintarse, si se quiere eliminar una nota ya establecida, se volverá a pulsar en ella durante otro segundo. La nota escrita se pintará del instrumento seleccionado. 
+
+IMPORTANTE: No se pueden tocar dos notas a la vez, luego solo se podrá seleccionar una nota por columna.
+
+Mediante los botones $->$ y $<-$ se podrá cambiar el compás en el que se esté trabajando. Se podrá reproducir el compás en el que nos encontramos mediante el botón $PLAY$ y la canción completa configurada hasta el momento con el botón $PLAY ALL$, se dispondrá también de un control de la velocidad de reproducción mediante un slider. Además, el compás se podrá limpiar con el botón $CLEAR$.
+
+Si se decide no guardar la canción compuesta, se podrá volver al menú inicial con el botón $NO SAVE$, o si por lo contrario se decide guardar, solo tendremos que guardar con el botón $SAVE$. 
+
+IMPORTANTE: Una vez que un compás se guarde, no podrá modificarse bajo ninguna circunstancia, aunque se podrán seguir añadiendo compases a la canción que se hubiesen dejado vacíos.
+
+EXTRA: Los botones de la pantalla se utilizarán para aumentar/disminuir el volumen.
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width=8cm]{menu2.jpeg}
+  \caption{Menú 2. Composición de canciones.}
+  \label{fig:img1}
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width=8cm]{vernota.jpeg}
+  \caption{Menú 2. Ver notas.}
+  \label{fig:img1}
+\end{figure}
+
+\section{Desarrollo del proyecto}
+En este apartado se desgranarán los tres bloques más importantes del programa: funciones de librería, funciones del programa principal y máquina de estados. En cada uno de ellos se tratarán los aspectos funcionales más relevantes de nuestro programa por partes, así como las dificultades específicas del apartado encontradas y las soluciones propuestas.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%FUNCIONES
+
+\subsection{Funciones en la librería}
+Se detallan a continuación las funciones de creación propia que se han añadido a la librería de la pantalla, $ft800TIVA.c$, proporcionada por el profesor de la asignatura. Digno de mencionar es que utilizamos varias funciones de dicha librería.
+
+\subsubsection{detectaNota}
+A esta función se la llama desde el estado segundo de la máquina de estados que controla el comportamiento del programa, una vez por cada posición de la matriz en la línea de tiempo. Recibe dos parámetros, que son la posición $x$ e $y$ de la fila que se encuentre analizando.
+Esta función da paso a $pintaDeteccion$ si, tras leer la pantalla, la variable $POSX$ tiene un valor distinto al que viene por defecto cuando no se toca la pantalla.
+
+\subsubsection{pintaDeteccion}
+En esta función se reciben los dos parámetros que recibe $detectaNota$, la $x$ y la $y$ de la fila que se encuentra analizando. Al haberse leído ya la pantalla, no es necesario volver a hacerlo. 
+Se comprueba si la posición $y$ detectada se encuentra entre los límites de la fila que se está analizando. Si es así, se determinará la columna a la cual corresponde mediante un bucle $for$, y se mandará la orden de pintar un cuadrado de la dimensión del espacio de la nota, quedando identificada la posición de la nota que se esté tocando, tanto visual como numéricamente. Asimismo, se devolverá la posición $x$ del inicio de la columna que corresponde a dicha nota, con la finalidad de compararla con la posición del vector $posicionx$ correspondiente a la columna que se esté analizando en ese momento.
+
+\subsubsection{pintaTiempo}
+Manda la orden de dibujar la línea de tiempo de la pantalla de edición.
+
+\subsubsection{cmd slider}
+Función reciclada de la práctica 4 de la asignatura, donde siguiendo los pasos del manual de la pantalla se obtiene una función para pintar un $slider$.
+
+\subsubsection{Selector}
+Es la función que controla el tempo de la canción. Recibe 5 parámetros correspondientes a la $x$ de inicio del dibujo de un slider, la $y$ de inicio, la longitud, el ancho y el valor actual del tempo, que en un principio está fijado por defecto a $dESTANDAR$.
+
+Al entrar en la función, se lee la pantalla y se pregunta si se está tocando en algún punto del slider. Para 5 intervalos distintos de la longitud, se determina cuál de ellos está siendo pulsado, y se fijan tanto el progreso del slider (a través de la variable $valorcalculado$) como el valor del tempo (a través de la variable $result$), que será devuelto en la función, actualizando la variable valor.
+
+\subsection{Funciones en el main}
+El objetivo de este apartado es aclarar el sentido de las funciones desarrolladas en el programa principal, así como comentar las dificultades encontradas (si se hubiera dado el caso) en cada una de ellas.
+
+\subsubsection{tocar}
+Función que permite tocar un compás a través de la matriz de trabajo. Para ello, se comprueba en cuál de las filas de cada columna se encuentra el valor 1. Una vez hecho, se pregunta si en las columnas concurrentes hacia la derecha hay más unos, incrementándose la duración de la nota por cada 1 encontrado, y se tocará la nota con la duración correspondiente. Se actualizará el valor del índice de la columna que se está analizando, y asimismo se pondrá el índice de las filas a 6 para que la siguiente iteración no se cumpla la condición y se tenga que cambiar de columna.
+
+Si no se hubiera encontrado ningún 1 en la fila significará que hay un silencio, el cual también se reproducirá a volumen nulo.
+
+\subsubsection{IntTimer0}
+Interrupción del timer que controla el $delay$ con el que se permite pintar notas en la línea de tiempo.
+
+\subsubsection{IntTimer1}
+Interrupción del timer que controla si se toca la canción completa o sólo un compás. Para ello, si se encuentra en el estado de tocar toda la canción, va cambiando el valor de la matriz de trabajo según el compás que deba sonar.
+
+\subsubsection{borraMatriz}
+Esta función rellena de ceros la matriz de trabajo.
+
+\subsubsection{volumen notas}
+Actualiza el valor de la variable $volumen$ según se pulse un botón u otro de la placa.
+
+\subsubsection{pintaNombresNotas}
+Pinta en pantalla el recuadro que contiene el nombre de cada nota, así como introduce en ellos los nombres.
+
+\subsubsection{pintaBotones}
+Pinta los botones correspondientes a las teclas de los intrumentos, así como actualiza el valor de la variable $instr$.
+
+\subsubsection{guardaTeclas}
+Guarda en la memoria flash la matriz correspondiente a un compás, así como los instrumentos asociados a cada fila.
+
+Como sólo se pueden guardar 32 bits cada vez, se divide la información en 4 bloques (notas de do a fa, notas de sol a si, instrumentos correspondientes a las 4 primeras filas, instrumentos correspondientes a las 4 últimas filas). La decisión de hacerlo así, aunque parezca sorprendente sobre todo en el caso de los instrumentos, es porque la opción de visualizar la memoria en CCS (con el memory browser) dividía las celdas de memoria (de 64 bits) en 2, por lo que visualmente resulta más claro determinar dónde empieza y dónde acaba cada compás ocupando dos filas de celdas de memoria.
+
+Común a cada bloque es el paso a vector de las posiciones de la matriz que se vayan a guardar. Para ello hacemos uso de la variable $lectura$, que guarda desplazando en 1 en cada iteración la posición de guardado, obteniendo un vector de unos y ceros que fácilmente se puede volver a leer. En el caso de los instrumentos, al ser 3 los ofrecidos, se codifican con 2 bits.
+
+Sólo si la variable $lectura$ es distinta de 0 (no se ha escrito en el compás) se escribirá en la flash. Somos conscientes de que el procedimiento usando la memoria EEPROM hubiera sido muy similar y nos hubiera permitido modificar las canciones una vez guardadas. Aunque probamos y funcionaba el ejemplo que aparece en el manual, a la hora de guardar los compases no teníamos claro dónde se guardaba la información (no encontramos, al menos, en el memory browser ninguna celda de memoria modificada al debuggear), así que no teníamos forma de comprobar si lo que hacíamos mal era el guardado o la lectura de la información, ya que no recuperábamos la canción después de un reset. Por esto, aunque usamos la memoria flash y las canciones no son modificables, permitimos que el compás que no se haya escrito no se guarde, haciendo más flexible, dentro de lo conocido, el uso del programa.
+
+
+\subsubsection{leeMemoria}
+Esta función lee de la memoria flash un compás y lo guarda en la matriz de trabajo.
+
+Para cada bloque, se comprueba si la memoria está escrita o no. Sabiendo que cuando no lo está, el número se puede conocer atendiendo a los registros, comprobando si $lectura$ vale o no ese número.
+
+Si no había nada escrito, la matriz se rellena de ceros en ese bloque. Si, por el contrario, sí había información, en el caso de los dos primeros bloques (las notas) se hace la conversión a binario del número entero sin signo que haya recabado $lectura$, y se rellena por columnas cada fila. En el caso de los instrumentos es igual, pero haciendo la decodificación.
+
+Tanto $leeMemoria$ como $guardaTeclas$ tienen el gran inconveniente de que trabajan con la matriz de trabajo. No hemos encontrado una forma elegante de pasarle como parámetro una matriz a una función. Esta es la razón de que haya una matriz por compás.
+
+
+\subsection{Máquina de estados}
+Para la realización del proyecto se ha seguido el siguiente diagrama de bolas dentro del bucle $while$.
+
+\begin{itemize}
+\item Estado 0: En este estado se realiza la elección de la canción, cada canción se guarda en una posición concreta en la flash, la cual se asignará al elegir la canción, tras esta elección se pasará a el estado 7.
+
+\item Estado 1: En este estado se muestra por pantalla un menú con opciones a elegir para cada canción, las opciones vendrán representadas con botones. El primer botón es $Escribir$ el cual nos puede llevar a dos estados distintos al pulsarse, si los compases están llenos, es decir, ya tenemos una canción escrita en ellos, nos llevará al estado 9, si existen compases vacíos nos llevará al estado 2.
+
+El siguiente botón es el de $Reproducir$ que nos llevará al estado 10 (mensaje de error) si no tenemos una canción guardada y al estado 6 (reproducción) si existe algo escrito en dichos compases. Posteriormente tenemos el botón $Ver Notas$ que nos llevará al estado 7 si tengo una canción escrita (para recuperar los valores de la flash) o al estado 10 si no tengo canción guardada (dando un mensaje de error).
+
+A este estado solo se pasa a través del estado 6 (tras reproducir una canción guardada), o a partir del estado 5 si se ha accedido a él a través de un camino concreto, el cual será el recorrido al pulsar el botón de la canción del menú inicial del estado 0.
+
+\item Estado 2: Este estado es el más relevante, ya que muestra por pantalla el menú utilizado para componer melodías, en este estado se pintarán en pantalla las notas que se quieran tocar pulsando el cuadrado correspondiente durante 1 segundo, igualmente si queremos borrar la nota, se hará pulsando el cuadrado pintado durante otro segundo, todo este proceso se realiza gracias a la función $detectaNota$ explicada anteriormente. 
+
+A este estado se llega tanto si en el menú anterior (menú de opciones de cada canción) pulsamos $Escribir$ y esta acción se puede realizar, como si pulsamos $VERNOTAS$, e igualmente se puede realizar (aunque antes pasará por diferentes estados). Si se pretende escribir se mostrarán todos los botones, sin embargo, si se llega a partir del botón $VERNOTAS$ no se mostrarán los botones de elección de instrumentos, ni los botones $SAVE$, $NOSAVE$ y $CLEAR$, ya que al no poder modificar la melodía, carece de sentido mostrarlos en pantalla, se añade el botón $VOLVER$ que nos lleva al estado inicial 0.
+
+Los botones descritos en este estado serán los que nos lleven al resto de estados, aunque de forma general se va al estado 4 continuamente para actualizar las matrices al pintar una nota nueva.
+
+Además se pintan por pantalla una serie de mensajes o variables para guiar al usuario, tales como, el compás en el que se encuentra. Por último se configura un slider con el que se controlará el tempo de la canción.
+
+
+\item Estado 3: En este estado se muestra por pantalla el mensaje \textit{Cancion guardada con exito} para informar al usuario de que la canción se ha guardado correctamente en memoria, tras esto deberá pulsarse el botón $OK$ que nos devolverá al menú inicial de elección de canciones, es decir, el estado 0.
+
+\item Estado 4: En este estado se realiza una actualización de las matrices del compás, a este estado se llega a través del estado 2, y tras actualizar las matrices vuelve al mismo.
+
+\item Estado 5: En este estado se actualizan las matrices que se van a ir utilizando durante la canción, dichas matrices se deben actualizar cada vez que alguien pinte en pantalla una nueva nota. Varios estados convergen en este, se puede llegar desde el estado 2, menú de composición, cuando se pulsen algunos de los botones $<-$ o $->$, cambiando la matriz que se muestra por pantalla, también se llega seguido del estado 7 en general, para asignar a cada matriz lo que estaba escrito en la flash, y por último se llega a través del estado 6, ya que necesitamos ir actualizando la matriz que se va reproduciendo. Este estado converge generalmente al estado 2, donde se sigue la composición de la canción, excepto si se ha llegado siguiendo el camino inicial al elegir la canción, en tal caso pasará al estado 1.
+
+\item Estado 6: En este estado se activa una interrupción que hace que se reproduzca la canción completa, se llega a este estado si tenemos una canción guardada y se pulsa el botón $Reproducir$ del estado 1, o el botón $PLAYALL$ del estado 2, en cualquiera de estos casos se volverá al estado del que se procedía.
+
+\item Estado 7: En este estado se recuperan los valores guardados en la flash y se le asignan a 7 matrices correspondientes a cada uno de los compases. Dependiendo de donde si algunas variables están activas u otras, se llegará a un estado o a otro. En el caso general se irá al estado 5, si la variable $botonguardar$ está activa, se pasará al estado 3(esta variable es un indicador de que la canción se quiere guardar en la memoria flash), y si está activa la variable $boton_volver$ pasaremos al estado 0 inicial(esta variable indica que queremos volver al estado inicial).
+
+\item Estado 8: En este estado se guarda en la memoria flash la canción creada, la forma de llegar a este estado será a  partir del botón $SAVE$, lo cual activará la variable $botonguardar$ para posteriormente llegar al estado 3 mostrando por pantalla el mensaje de guardado. Además en este estado, una vez guardadas las matrices, se borran todas, poniéndolas a cero para iniciar de nuevo el programa sin una lectura errónea.
+
+Los estados 4 y 5 están relacionados con la actualización y guardado de matrices que se van utilizando mientras se crea la canción y los estados 7 y 8, son los relacionados con la actualización y guardado de matrices generales de la flash.
+
+\item Estado 9: En este estado se muestra un mensaje por pantalla que dice \textit{Ya ha escrito una cancion aqui}, a este estado se llega si al intentar escribir una canción todos sus compases se han escrito anteriormente, se salé de este estado pulsando el botón $OK$ que nos devolverá al inicio (estado 0).
+
+\item Estado 10: En este estado se muestra un mensaje por pantalla que dice \textit{No has guardado nada que ver aqui}, al que se ha llegado si no tengo ninguna canción guardada y pulso alguno de los botones $VerNotas$ o $Reproducir$ del estado 1. Al igual en que el estado 9 de este se saldrá al pulsar el botón $OK$ que nos llevará al estado de inicio 0.
+
+\end{itemize}
+
+\includepdf[landscape=true]{diagrama_bolas.pdf}
+
+\section{Recursos utilizados}
+Se adjunta una imagen de la memoria utilizada en nuestro proyecto. Comprobamos que lo que más ocupa son las diferentes fuentes implementadas, lo cual nos indica que en una futura mejora podrían almacenarse más compases.
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width=13cm]{memoria.png}
+  \caption{Recursos utilizados}
+  \label{fig:img1}
+\end{figure}
+
+
+\section{Código}
+\subsection{Código Principal}
+\begin{lstlisting}[basicstyle=\footnotesize] 
+#include <stdint.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include "driverlib2.h"
+#include "FT800_TIVA.h"
+#include "driverlib/flash.h"
+
+// Function Declarations
+#define dword long
+#define byte char
+
+// Variable Declarations
+int a = 0;
+char chipid = 0;    // Holds value of Chip ID read from the FT800
+
+unsigned long cmdBufferRd = 0x00000000;         // Store the value read from the REG_CMD_READ register
+unsigned long cmdBufferWr = 0x00000000;         // Store the value read from the REG_CMD_WRITE register
+unsigned int t=0;
+
+// User Application - Initialization of MCU / FT800 / Display
+unsigned long POSX, POSY, BufferXY;
+unsigned long POSYANT=0;
+unsigned int CMD_Offset = 0;
+unsigned long REG_TT[6];
+const int32_t REG_CAL[6]={21696, -78, -614558, 498, -17021, 15755638};
+const int32_t REG_CAL5[6]={32146, -1428, -331110, -40, -18930, 18321010};
+
+#define NUM_SSI_DATA            3
+
+/* LINEA DE TIEMPO */
+char alturas[7] = {VSIZE/20,VSIZE/20+22,VSIZE/20+44,VSIZE/20+66,VSIZE/20+88,VSIZE/20+110,VSIZE/20+132};
+char posicion_x[8] = {HSIZE/20 + 80, HSIZE/20 + 80 + 21, HSIZE/20 + 80 + 21*2, HSIZE/20 + 80 + 21*3, HSIZE/20 + 80 + 21*4, HSIZE/20 + 80 + 21*5, HSIZE/20 + 80 + 21*6, HSIZE/20 + 80 + 21*7};
+
+/* TIMER */
+#define MSEC 40000
+bool adelante = 0;
+int RELOJ, periodo1;
+int segundos = 0;
+] 
+/* NOTAS */
+#define DOG 60
+#define REG 62
+#define MIG 64
+#define FAG 65
+#define SOLG 67
+#define LAG 69
+#define SIG 71
+int tono[7] = {DOG, REG, MIG, FAG, SOLG, LAG, SIG};
+
+/* INSTRUMENTOS */
+#define PIANO 0x46
+#define XILOFONO 0x41
+#define BOMBO 0x55
+#define HIHATS 0x54
+int instr = 0;  //elección de instrumento
+int instru[7] = {0,0,0,0,0,0,0};
+
+/* DURACIONES DE LA CORCHEA (1 cuadradito) */
+#define dESTANDAR 500*MSEC
+int valor = dESTANDAR;
+
+/* POSICIONES DE MEMORIA DE CADA CANCION */
+#define POSC1 0x30000
+#define POSC2 0x40000
+#define POSC3 0x50000
+unsigned int posicion;
+
+/* COMPASES */
+#define CompasMIN 1
+#define CompasMAX 25
+bool antirebotes1 = 0;
+bool antirebotes2 = 0;
+unsigned int compas = 1;
+unsigned int compasg = 0;
+unsigned int variable_compas_pantalla = 0; //Variable para mostrar por pantalla el compás en el que se encuentra
+
+/* VOLUMEN */
+#define volMIN 0
+#define volMAX 230
+int volumen = 120;
+
+/* BOTONES */
+#define B1_OFF GPIOPinRead(GPIO_PORTJ_BASE,GPIO_PIN_0)
+#define B1_ON !(GPIOPinRead(GPIO_PORTJ_BASE,GPIO_PIN_0))
+#define B2_OFF GPIOPinRead(GPIO_PORTJ_BASE,GPIO_PIN_1)
+#define B2_ON !(GPIOPinRead(GPIO_PORTJ_BASE,GPIO_PIN_1))
+
+/* OTRAS VARIABLES */
+char statement[50];
+bool guardar = 0;
+#define P1 (HWREG(posicion + sizeof(uint32_t)*(compasg-1)) == 4294967295)
+#define P2 (HWREG(posicion + sizeof(uint32_t)*(compasg)) == 4294967295)
+    int g = 0;
+    int j = 0;
+    int estado = 0, estado_ant = 0, no_modificar=0, boton_volver=0, boton_guardar=0;
+
+/* MATRICES */
+int matriz1[8][8] = {0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0}; //COMPAS 1
+int matriz2[8][8] = {0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0}; //COMPAS 2
+int matriz3[8][8] = {0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0}; //COMPAS 3
+int matriz4[8][8] = {0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0}; //COMPAS 4
+int matriz5[8][8] = {0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0}; //COMPAS 5
+int matriz6[8][8] = {0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0}; //COMPAS 6
+int matriz7[8][8] = {0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0,
+                     0, 0, 0, 0, 0, 0, 0, 0}; //COMPAS 7
+
+int matriz[8][8] = {0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0}; //MATRIZ AUXILIAR
+
+int matriz_leida[8][8] = {0, 0, 0, 0, 0, 0, 0, 0,
+                          0, 0, 0, 0, 0, 0, 0, 0,
+                          0, 0, 0, 0, 0, 0, 0, 0,
+                          0, 0, 0, 0, 0, 0, 0, 0,
+                          0, 0, 0, 0, 0, 0, 0, 0,
+                          0, 0, 0, 0, 0, 0, 0, 0,
+                          0, 0, 0, 0, 0, 0, 0, 0,
+                          0, 0, 0, 0, 0, 0, 0, 0}; //MATRIZ AUXILIAR FLASH
+\end{lstlisting}
+
+\begin{lstlisting}
+void tocar (void){
+int col, fila;
+int duracion;
+int i;
+
+    for (col = 0; col<8; col++)              //columna a columna
+    {
+        duracion = 0;                      //establezco duración
+        for (fila = 0; fila<7; fila++)     //reviso todas las filas
+        {
+            if (matriz[fila][col]==1)      //si vale 1
+            {
+                duracion = valor;       //y aumento la duración en 1 cuadradito
+                i = 1;
+                while(matriz[fila][col+i]==1 && (col+i)<8)
+                {
+                    duracion+=valor;
+                    i++;
+                }
+                i = 0;
+            }
+
+            if (duracion == 0 && fila == 6)
+            {
+                duracion = valor;
+                VolNota(0);
+                TocaNota(matriz[7][col],tono[fila]);           //y la toco
+                SysCtlDelay(duracion);
+            }
+            else if (duracion != 0)
+            {
+                VolNota(volumen);
+                TocaNota(matriz[7][col],tono[fila]);           //y la toco
+                SysCtlDelay(duracion);
+                col = col + duracion/(valor) - 1;
+                fila = 6;
+            }
+        }
+        FinNota();
+    }
+
+} 
+
+/* INTERRUPCIONES */
+void IntTimer0(void)
+{
+    TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
+    SysCtlDelay(100);
+
+    adelante = 1;
+}
+
+void IntTimer1(void)
+{
+    if (estado == 6){
+        for(compasg = 1; compasg<=CompasMAX; compasg = compasg+4)
+        {
+            for(j = 0; j<8; j++)
+            {
+                for(g = 0; g<8; g++)
+                {
+                    switch (compasg){
+                    case 1:
+                        matriz[j][g] = matriz1[j][g];
+                        break;
+                    case 5:
+                        matriz[j][g] = matriz2[j][g];
+                        break;
+                    case 9:
+                        matriz[j][g] = matriz3[j][g];
+                        break;
+                    case 13:
+                        matriz[j][g] = matriz4[j][g];
+                        break;
+                    case 17:
+                        matriz[j][g] = matriz5[j][g];
+                        break;
+                    case 21:
+                        matriz[j][g] = matriz6[j][g];
+                        break;
+                    case 25:
+                        matriz[j][g] = matriz7[j][g];
+                        break;
+                    }
+                }
+            }
+            tocar();
+        }
+
+    }
+
+    else tocar();
+
+    TimerIntClear(TIMER1_BASE, TIMER_TIMA_TIMEOUT);
+    adelante = 1;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=\footnotesize] 
+void borraMatriz(void){
+    int g, j;
+    for (j = 0; j<8; j++)
+    {
+        for (g=0; g<8; g++)
+        {
+            matriz[j][g]=0;
+        }
+    }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=\footnotesize] 
+void volumen_notas(void)
+{
+    if(B1_ON)
+    {
+        while(B1_ON);
+        if(volumen>volMAX) volumen = volMAX;
+        else volumen = volumen + 20;
+        GPIOIntClear(GPIO_PORTJ_BASE, GPIO_PIN_0);  //borrar interrupción
+    }
+
+    if(B2_ON)
+    {
+        while(B2_ON);
+        if(volumen<0) volumen = volMIN;
+        else volumen = volumen - 20;
+        GPIOIntClear(GPIO_PORTJ_BASE, GPIO_PIN_1);  //borrar interrupción
+    }
+}
+
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=\footnotesize] 
+void pintaNombresNotas(void)
+{
+    int k;
+    for (k=0;k<7;k++)
+    {
+        ComColor(0xff,0xff,0xff);  //color teclas blanco
+        Comando(CMD_BEGIN_RECTS);  //Pinta el rectangulo blanco de fondo del doremifasol segun en que fila estamos
+        ComVertex2ff(HSIZE/20,VSIZE/20+22*k);
+        ComVertex2ff(HSIZE/20 + 75,VSIZE/20+22*k + 20);
+        Comando(CMD_END);
+    }
+    ComColor(0,0,0);  //color letras negro
+    ComTXT(HSIZE/20 + 36, VSIZE/20, 22, OPT_CENTERX,"DO");
+    ComTXT(HSIZE/20 + 36, VSIZE/20 + 22, 22, OPT_CENTERX,"RE");
+    ComTXT(HSIZE/20 + 36, VSIZE/20 + 44, 22, OPT_CENTERX,"MI");
+    ComTXT(HSIZE/20 + 36, VSIZE/20 + 66, 22, OPT_CENTERX,"FA");
+    ComTXT(HSIZE/20 + 36, VSIZE/20 + 88, 22, OPT_CENTERX,"SOL");
+    ComTXT(HSIZE/20 + 36, VSIZE/20 + 110, 22, OPT_CENTERX,"LA");
+    ComTXT(HSIZE/20 + 36, VSIZE/20 + 132, 22, OPT_CENTERX,"SI");
+}
+
+
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=\footnotesize] 
+void pintaBotones(void)
+{    //Según la tabla de lista_notas_instrumentos.pdf
+    ComFgcolor(0xff,0,0);  //color teclas rojo
+    if(Boton(   HSIZE/20, 6*VSIZE/7, 85, 20, 27, "PIANO"))      instr=PIANO;
+    ComFgcolor(0,0xff,0);  //color teclas verde
+    if(Boton( 7*HSIZE/20, 6*VSIZE/7, 85, 20, 27, "XILOFONO"))   instr=XILOFONO;
+    ComFgcolor(0,0,0xff);  //color teclas azul
+    if(Boton(13*HSIZE/20, 6*VSIZE/7, 85, 20, 27, "BOMBO"))      instr=BOMBO;
+}
+
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=\footnotesize] 
+void guardaTeclas(void)
+{
+    int fila, col;
+    uint32_t lectura = 0; //guarda las 32 primeras posiciones de la matriz(64)
+    int indice = 0;
+
+    // PARA GUARDAR UN COMPAS
+    // Primeras 4 filas (de do a fa)
+    for(fila = 0; fila<4; fila++)
+    {
+        for(col = 0; col<8; col++)
+        {
+            lectura |= (bool)matriz[fila][col]<<(indice);
+            indice++;
+        }
+    }
+    if (lectura!=0) FlashProgram(&lectura,posicion + sizeof(lectura)*(compasg-1),sizeof(lectura));
+
+    //Siguientes 3 filas (de sol a si)
+    indice = 0;
+    lectura = 0;
+    for(fila = 4; fila<7; fila++)
+    {
+        for(col = 0; col<8; col++)
+        {
+            lectura |= (bool)matriz[fila][col]<<(indice);
+            indice++;
+        }
+    }
+    if (lectura!=0) FlashProgram(&lectura,posicion + sizeof(lectura)*compasg,sizeof(lectura));
+
+    //Última fila -> Instrumentos utilizados
+    //Cuatro primeros
+    lectura = 0; indice = 0;
+    for(col = 0; col<4; col++){
+        if(matriz[7][col] == PIANO) matriz[7][col] = 1;
+        if(matriz[7][col] == XILOFONO) matriz[7][col] = 2;
+        if(matriz[7][col] == BOMBO) matriz[7][col] = 3;
+
+        lectura |= matriz[7][col]<<(indice);
+        indice = 2 + indice;
+    }
+    if (lectura!=0) FlashProgram(&lectura,posicion+(compasg+1)*sizeof(lectura),sizeof(lectura));
+
+    //Cuatro últimos
+    lectura = 0; indice = 0;
+    for(col = 4; col<8; col++){
+        if(matriz[7][col] == PIANO) matriz[7][col] = 1;
+        if(matriz[7][col] == XILOFONO) matriz[7][col] = 2;
+        if(matriz[7][col] == BOMBO) matriz[7][col] = 3;
+
+        lectura |= matriz[7][col]<<(indice);
+        indice = indice + 2;
+    }
+    if (lectura!=0) FlashProgram(&lectura,posicion+(compasg+2)*sizeof(lectura),sizeof(lectura));
+}
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=\footnotesize] 
+void leeMemoria(){
+    uint32_t lectura = 0;
+    int fila, col;
+    int i;
+    char binario[32];
+
+    //Primeras posiciones del compas (32 primeros bits)
+    lectura = HWREG(posicion + sizeof(lectura)*(compasg-1)); //Compasg empieza en 1
+    if (lectura == 4294967295){
+        for (fila = 0; fila<4; fila++)
+        {
+            for (col = 0; col<8; col++)
+            {
+                matriz[fila][col] = 0;
+            }
+        }
+    }
+    else{
+        // filas de do a fa
+        for (i = 0; i<32; i++) binario[i] = 0;
+
+        i = 31;
+        while(lectura>=1)
+        {
+            binario[i] = lectura%2;
+            lectura = lectura/2;
+            i--;
+        }
+
+        i = 31;
+        for (fila = 0; fila<4; fila++)
+        {
+            for (col = 0; col<8; col++)
+            {
+                matriz[fila][col] = binario[i];
+                i--;
+            }
+        }
+    }
+
+    //filas de sol a si
+    lectura = HWREG(posicion + sizeof(lectura)*(compasg));
+    if (lectura == 4294967295){
+        for (fila = 4; fila<7; fila++)
+        {
+            for (col = 0; col<8; col++)
+            {
+                matriz[fila][col] = 0;
+            }
+        }
+    }
+    else{
+        for (i = 0; i<32; i++) binario[i] = 0;
+        i = 31;
+
+        while(lectura>=1)
+        {
+            binario[i] = lectura%2;
+            lectura = lectura/2;
+            i--;
+        }
+
+        i = 31;
+        for (fila = 4; fila<7; fila++)
+        {
+            for (col = 0; col<8; col++)
+            {
+                matriz[fila][col] = binario[i];
+                i--;
+            }
+        }
+    }
+
+    fila = 7;
+    //primeros 4 instrumentos
+    lectura = HWREG(posicion + sizeof(lectura)*(compasg+1));
+    if (lectura == 4294967295){
+
+            for (col = 0; col<4; col++)
+            {
+                matriz[fila][col] = 0;
+            }
+
+    }
+    else{
+        for (i = 0; i<32; i++) binario[i] = 0;
+        i = 31;
+
+        while(lectura>=1)
+        {
+            binario[i] = lectura%2;
+            lectura = lectura/2;
+            i--;
+        }
+
+        i = 31;
+        for (col = 0; col<4; col++){
+            if(binario[i]==1){
+                if (binario[i-1]==1) matriz[7][col] = BOMBO;
+                else matriz[7][col] = PIANO;}
+            else{
+                if (binario[i-1]==1) matriz[7][col] = XILOFONO;
+                else matriz[7][col] = 0;}
+            i = i - 2;
+        }
+    }
+
+    //ultimos 4 instrumentos
+    lectura = HWREG(posicion + sizeof(lectura)*(compasg+2));
+    if (lectura == 4294967295){
+
+            for (col = 4; col<8; col++)
+            {
+                matriz[fila][col] = 0;
+            }
+
+    }
+    else{
+        for (i = 0; i<32; i++) binario[i] = 0;
+        i = 31;
+
+        while(lectura>=1)
+        {
+            binario[i] = lectura%2;
+            lectura = lectura/2;
+            i--;
+        }
+
+        i = 31;
+        for (col = 4; col<8; col++){
+            if(binario[i]==1)
+                if (binario[i-1]==1) matriz[7][col] = BOMBO;
+                else matriz[7][col] = PIANO;
+            else
+                if (binario[i-1]==1) matriz[7][col] = XILOFONO;
+                else matriz[7][col] = 0;
+            i = i - 2;
+        }
+    }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=\footnotesize] 
+int main(void){
+    //RELOJ
+    RELOJ = SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ | SYSCTL_OSC_MAIN | SYSCTL_USE_PLL | SYSCTL_CFG_VCO_480), 120000000);
+    HAL_Init_SPI(1, RELOJ);  //Boosterpack a usar, Velocidad del MC
+
+    periodo1 = 120e6 * 1000e-3; //1s
+
+    //Habilitar los periféricos implicados: N y J
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPION);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOJ); //Botones para el volumen
+
+    //Definir tipo de pines
+    GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_0 |GPIO_PIN_1); //N0 y N1: salidas
+    GPIOPinTypeGPIOInput(GPIO_PORTJ_BASE, GPIO_PIN_0|GPIO_PIN_1);   //J0 y J1: entradas
+    GPIOPadConfigSet(GPIO_PORTJ_BASE,GPIO_PIN_0|GPIO_PIN_1,GPIO_STRENGTH_2MA,GPIO_PIN_TYPE_STD_WPU); //Pullup en J0 y J1
+
+    //TIMER 0
+    //Fijar velocidad a 120MHz
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER0);           
+    //Habilita T0
+    TimerClockSourceSet(TIMER0_BASE, TIMER_CLOCK_SYSTEM);   
+    //T0 a 120MHz
+    TimerConfigure(TIMER0_BASE, TIMER_CFG_PERIODIC);        
+    //T0 periodico y conjunto (32b)
+    TimerLoadSet(TIMER0_BASE, TIMER_A, periodo1 -1);       
+    //Interrupcion cada 0.5s
+    TimerIntRegister(TIMER0_BASE,TIMER_A,IntTimer0);
+    IntEnable(INT_TIMER0A);
+    TimerIntEnable(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
+
+    //TIMER 1
+    //Fijar velocidad a 120MHz
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER1);       //Habilita T1
+    TimerClockSourceSet(TIMER1_BASE, TIMER_CLOCK_SYSTEM); //T1 a 120MHz
+    TimerConfigure(TIMER1_BASE, TIMER_CFG_PERIODIC);    //T1 periodico y conjunto (32b)
+    TimerLoadSet(TIMER1_BASE, TIMER_A, RELOJ -1);       //Interrupción cada 1s
+    TimerIntRegister(TIMER1_BASE,TIMER_A, IntTimer1);
+    IntEnable(INT_TIMER1A);
+    TimerIntEnable(TIMER1_BASE, TIMER_TIMA_TIMEOUT);
+
+    //Interrupción volumen con botones
+    GPIOIntTypeSet(GPIO_PORTJ_BASE,GPIO_PIN_0|GPIO_PIN_1,GPIO_FALLING_EDGE); // Definir tipo int: flanco bajada
+    GPIOIntEnable(GPIO_PORTJ_BASE, GPIO_PIN_0|GPIO_PIN_1);  
+    // Habilitar pines de interrupción J0, J1
+    GPIOIntRegister(GPIO_PORTJ_BASE, volumen_notas);  
+    //Registrar (definir) la rutina de interrupción
+    IntEnable(INT_GPIOJ);   //Habilitar interrupción del pto J
+
+    //Posición de la pantalla
+    GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_0 |GPIO_PIN_1);
+    SysCtlPeripheralClockGating(true);                      //Habilitar el apagado selectivo de periféricos
+
+    //Habilitacion de las interrupciones globales
+    IntMasterEnable();
+
+    Inicia_pantalla();
+    SysCtlDelay(RELOJ/3);
+
+    Nueva_pantalla(0,0,0); //Color del fondo
+    ComFgcolor(0x00,0x00,0x00);
+
+    ComLineWidth(5);
+    Comando(CMD_BEGIN_RECTS);   //rectángulo del color anterior
+    ComVertex2ff(10,10);    //vértice del rectángulo
+    ComVertex2ff(HSIZE-10,VSIZE-10);
+    ComColor(100,28,52);
+    ComVertex2ff(12,12);
+    ComVertex2ff(HSIZE-12,VSIZE-12);
+
+    Comando(CMD_END);
+    ComColor(0xff,0xff,0xff); //color blanco
+    ComTXT(HSIZE/2,20+VSIZE/5, 22, OPT_CENTERX,"DIVERTETE Y APRENDE");
+    ComTXT(HSIZE/2,50+15+VSIZE/5, 22, OPT_CENTERX,"CREA TU MELODIA");
+
+    Comando(CMD_BEGIN_LINES);
+    ComVertex2ff(40,40);
+    ComVertex2ff(HSIZE-40,40);
+    ComVertex2ff(HSIZE-40,40);
+    ComVertex2ff(HSIZE-40,VSIZE-40);
+    ComVertex2ff(HSIZE-40,VSIZE-40);
+    ComVertex2ff(40,VSIZE-40);
+    ComVertex2ff(40,VSIZE-40);
+    ComVertex2ff(40,40);
+    Comando(CMD_END);
+
+    Dibuja();   //dibuja lo anterior
+    Espera_pant();  //seguridad
+
+    int i = 0;
+#ifdef VM800B35
+    for(i=0;i<6;i++)    Esc_Reg(REG_TOUCH_TRANSFORM_A+4*i, REG_CAL[i]);
+#endif
+#ifdef VM800B50
+    for(i=0;i<6;i++)    Esc_Reg(REG_TOUCH_TRANSFORM_A+4*i, REG_CAL5[i]);
+#endif
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=\footnotesize] 
+    while(1)
+    {
+        Lee_pantalla();
+
+        switch (estado)
+        {
+
+        //Pantalla donde eliges la canción//
+
+        case 0:
+            Nueva_pantalla(0x10,0x10,0x10);
+            ComGradient(0,0,0xdeebf4,0,240,0x619fc9);
+
+            ComColor(0xff,0xff,0xff);
+            ComFgcolor(0,0,0);
+            ComTXT(HSIZE/2, VSIZE/7, 28, OPT_CENTERX,"ELIGE UNA CANCION");
+            boton_volver=0;
+            estado_ant=0;
+            instr=0;
+            if(Boton(HSIZE/3, 2*VSIZE/7, 80, 20, 27, "Cancion 1"))
+            {
+                estado = 7;
+                posicion = POSC1; //Posición de memoria donde comienza a guardarse la canción
+            }
+
+            if(Boton(HSIZE/3, 3*VSIZE/7, 80, 20, 27, "Cancion 2"))
+            {
+                estado = 7;
+                posicion = POSC2;
+            }
+
+            if(Boton(HSIZE/3, 4*VSIZE/7, 80, 20, 27, "Cancion 3"))
+            {
+                estado = 7;
+                posicion = POSC3;
+            }
+
+
+            Dibuja();
+            break;
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=\footnotesize] 
+            //Menú de la canción//
+
+        case 1:
+
+            Nueva_pantalla(0x10,0x10,0x10);
+            ComGradient(0,0,0xdeebf4,0,240,0x619fc9);
+            instr=0;
+            if(Boton(HSIZE/2, 2*VSIZE/7, 80, 20, 27, "Escribir"))
+            {
+                for (compasg=1;compasg<25;compasg = compasg + 4){
+                    if(P1 || P2) estado = 2;
+                    else estado = 9;
+                }
+
+            }
+
+            if(Boton(HSIZE/2, 3*VSIZE/7, 80, 20, 27, "Reproducir"))
+            {
+                estado_ant = 1;
+                if(HWREG(posicion) == 4294967295) estado=10;
+                else estado = 6;
+            }
+
+            if(Boton(HSIZE/2, 4*VSIZE/7, 80, 20, 27, "Ver notas"))
+            {
+                estado_ant=1;
+                instr=0;
+                no_modificar=1;
+                if(HWREG(posicion) == 4294967295) estado=10;
+                else estado = 7; //Lee flash
+            }
+            else no_modificar=0;
+
+            if(Boton(HSIZE/2, 5*VSIZE/7, 80, 20, 27, "Cancelar"))
+            {
+                estado = 0;
+            }
+
+            Dibuja();
+            break;
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=\footnotesize] 
+            //Acciones en la canción//
+
+        case 2:
+
+            Nueva_pantalla(0x10,0x10,0x10);
+            ComGradient(0,0,0xdeebf4,0,240,0x619fc9);
+
+            pintaTiempo();
+            pintaNombresNotas();
+
+            SysCtlDelay(100);
+
+            estado_ant=2;
+
+            /**************************************
+             *
+             *  Pintar en la línea de tiempo
+             *
+             * ************************************/
+
+            for (j = 0; j<7; j++){
+                for (g = 0; g<8; g++){
+
+                    /*************************************************/
+                    //Para pintar en la pantalla, la posición tiene que estar a 1
+                    if (matriz[j][g] == 1){
+
+                        if(matriz[7][g] != 0){
+                            // Si se ha escogido un instrumento
+
+                            if (matriz[7][g] == PIANO)
+                                ComColor(0xff,0,0); //color cuadradito rojo
+                            else if (matriz[7][g] == XILOFONO)
+                                ComColor(0,0Xff,0); //verde
+                            else if (matriz[7][g] == BOMBO)
+                                ComColor(0,0,0xff); //azul
+
+                            Comando(CMD_BEGIN_RECTS);
+                            ComVertex2ff(posicion_x[g], alturas[j]);
+                            ComVertex2ff(posicion_x[g]+20, alturas[j]+20);
+                            Comando(CMD_END);
+                        }
+                        else matriz[j][g] = 0;
+                        //Si no se ha escogido, no lo pinto, y actualizo la posición a 0
+                    }
+
+                    /*************************************************/
+                    if(no_modificar==0){
+                        // Actualización de la matriz
+                        if(detectaNota(HSIZE/20 + 80,alturas[j]) == posicion_x[g]){
+                            // Si he tocado un cuadradito
+
+                            if(matriz[j][g] == 0){ //Si no había nada pintado en la posición
+                                adelante = 0;
+                                TimerEnable(TIMER0_BASE, TIMER_A);  //activo timer
+                                while(adelante == 0);               //espero a que pase 1s
+                                TimerDisable(TIMER0_BASE, TIMER_A); //desactivo timer
+
+                                matriz[7][g] = instr; //guardo el instrumento que se ha tocado
+
+
+                                //Si alguna de las posiciones de la columna era 1, no actualizo (no puedo tocar dos notas a la vez)
+                                if (matriz[0][g] == 1) ;
+                                else if (matriz[1][g] == 1) ;
+                                else if (matriz[2][g] == 1) ;
+                                else if (matriz[3][g] == 1) ;
+                                else if (matriz[4][g] == 1) ;
+                                else if (matriz[5][g] == 1) ;
+                                else if (matriz[6][g] == 1) ;
+
+                                //Si no había nada pintado en la columna
+                                else
+                                    matriz[j][g] = 1;  //actualizo posición a 1
+
+                            }
+                            else if (matriz[j][g] == 1) //pero si había algo pintado (al seleccionar de nuevo despinto lo anterior)
+                            {
+                                adelante = 0;
+                                TimerEnable(TIMER0_BASE, TIMER_A);//activo timer
+                                while(adelante == 0);       //espero a que pase 1s
+                                TimerDisable(TIMER0_BASE, TIMER_A);//desactivo timer
+
+                                matriz[j][g] = 0;    //la pongo a 0
+                            }
+                        }
+                    }
+                }
+            }
+            SysCtlDelay(100);
+
+            //Si nada lo impide, pasamos al estado 4 (guardado de las matrices actualizadas)
+            estado = 4;
+
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=\footnotesize] 
+            /**************************************
+             *
+             *  Acciones en el compás (botones)
+             *
+             * ************************************/
+            ComColor(0xff,0xff,0xff);
+            ComFgcolor(0,0,0); //color botones blanco
+            ComTXT(HSIZE/4, 5*VSIZE/7 + 10, 27, OPT_CENTERX,"ELIGE UN INSTRUMENTO");
+            ComTXT(HSIZE/9 + 105, 4*VSIZE/7 + 21, 26, 0,"TEMPO");
+
+
+            /*******************************************************/
+            //Cambio de compás
+            if(Boton(16*HSIZE/20 + 10, 4*VSIZE/8, 35, 20, 27, "->")){
+
+                if (antirebotes1 == 1 && compas<CompasMAX)
+                {
+                    antirebotes1 = 0;
+                    compas = compas + 4;
+                    estado = 5;
+                }
+            }
+            else antirebotes1 = 1;
+
+            if(Boton(16*HSIZE/20 -30, 4*VSIZE/8, 35, 20, 27, "<-")){
+
+                if(antirebotes2 == 1 && compas>CompasMIN)
+                {
+                    antirebotes2 = 0;
+                    compas = compas - 4;
+                    estado = 5;
+                }
+            }
+            else antirebotes2 = 1;
+
+            /*******************************************************/
+            //Botón para volver
+            if(Boton(12*HSIZE/20+90, 1*VSIZE/11 + VSIZE/8, 65, 20, 27, "VOLVER"))
+            {
+                borraMatriz();
+                estado=0;
+            }
+
+            if(no_modificar==0) //No se puede guardar y limpiar en la versión de ver notas
+            {
+                pintaBotones();
+
+                /*****************************************************/
+                //Botón para volver
+                ComColor(0xff,0xff,0xff);
+                ComFgcolor(0,0,0); //color botones negro
+                if(Boton(12*HSIZE/20+90, 1*VSIZE/11 + VSIZE/8, 70, 20, 27, "NO SAVE"))
+                {
+                    boton_volver=1;
+                    borraMatriz();
+                    estado=7;
+                }
+                else boton_volver=0;
+
+                /*****************************************************/
+                //Guardar canción
+                if(Boton(12*HSIZE/20+5, 1*VSIZE/11 + VSIZE/8, 50, 20, 27, "SAVE"))
+                {
+                    boton_guardar=1;
+                    estado=8;
+                }
+                else boton_guardar=0;
+
+
+
+                /*****************************************************/
+                //Borrar compás
+                if(Boton(12*HSIZE/20+5, 1*VSIZE/11, 50, 20, 27, "CLEAR"))
+                {
+                    borraMatriz();
+                }
+
+            }
+            /*********************************************************/
+            //Reproducir compás
+            if(Boton(12*HSIZE/20+5, 1*VSIZE/11 + 2*VSIZE/8, 50, 20, 27, "PLAY"))
+            {
+                adelante = 0;
+                TimerEnable(TIMER1_BASE, TIMER_A);  //activo interrupción
+                while(adelante==0);                 //espero a que acabe
+                TimerDisable(TIMER1_BASE, TIMER_A); //desactivo interrupción
+            }
+
+
+            /*********************************************************/
+            //Reproducir canción
+            if(Boton(12*HSIZE/20+90, 1*VSIZE/11 + 2*VSIZE/8, 80, 20, 27, "PLAY ALL"))
+            {
+                estado_ant = 2;
+                estado = 6;
+            }
+
+            /*********************************************************/
+            //Mensaje del compás en el que nos encontramos
+            if(compas==1) variable_compas_pantalla=1;
+            else if(compas==5) variable_compas_pantalla=2;
+            else if(compas==9) variable_compas_pantalla=3;
+            else if(compas==13) variable_compas_pantalla=4;
+            else if(compas==17) variable_compas_pantalla=5;
+            else if(compas==21) variable_compas_pantalla=6;
+            else if(compas==25) variable_compas_pantalla=7;
+            else variable_compas_pantalla=0;
+
+            sprintf(statement, "%d", variable_compas_pantalla);
+            ComTXT(12*HSIZE/20+38, 4*VSIZE/8, 27, OPT_CENTERX, statement);
+
+            //tempo
+            ComColor(0,0,0);
+            ComBgcolor(0xff,0xff,0xff);
+            ComFgcolor(0xff,0,0);
+            valor = Selector(HSIZE/13, 4*VSIZE/7 + 25, 100, 8, valor);
+
+            Dibuja();
+            break;
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=\footnotesize] 
+            //Muestra si se ha guardado la canción//
+
+        case 3:
+            Nueva_pantalla(0x10,0x10,0x10);
+            ComGradient(0,0,0xdeebf4,0,240,0x619fc9);
+            ComTXT(HSIZE/2, 3*VSIZE/7, 27, OPT_CENTERX, "Cancion guardada con exito");
+            boton_guardar=0;
+            if(Boton(HSIZE/2, 5*VSIZE/7, 50, 20, 27, "OK")) estado=0;
+            else estado = 3;
+            Dibuja();
+            break;
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=\footnotesize] 
+            //Actualización de las matrices-compás//
+
+        case 4:
+            for(j=0;j<8;j++)
+            {
+                for(g=0;g<8;g++)
+                {
+                    switch (compas)
+                    {
+                    case 1:
+                        matriz1[j][g] = matriz[j][g];
+                        break;
+                    case 5:
+                        matriz2[j][g] = matriz[j][g];
+                        break;
+                    case 9:
+                        matriz3[j][g] = matriz[j][g];
+                        break;
+                    case 13:
+                        matriz4[j][g] = matriz[j][g];
+                        break;
+                    case 17:
+                        matriz5[j][g] = matriz[j][g];
+                        break;
+                    case 21:
+                        matriz6[j][g] = matriz[j][g];
+                        break;
+                    case 25:
+                        matriz7[j][g] = matriz[j][g];
+                        break;
+                    }
+                }
+            }
+
+            estado = 2;
+            break;
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=\footnotesize] 
+            //Actualización de la matriz de manejo//
+
+        case 5:
+            for(j=0;j<8;j++){
+                for(g=0;g<8;g++){
+                    switch (compas){
+                    case 1:
+                        matriz[j][g] = matriz1[j][g];
+                        break;
+                    case 5:
+                        matriz[j][g] = matriz2[j][g];
+                        break;
+                    case 9:
+                        matriz[j][g] = matriz3[j][g];
+                        break;
+                    case 13:
+                        matriz[j][g] = matriz4[j][g];
+                        break;
+                    case 17:
+                        matriz[j][g] = matriz5[j][g];
+                        break;
+                    case 21:
+                        matriz[j][g] = matriz6[j][g];
+                        break;
+                    case 25:
+                        matriz[j][g] = matriz7[j][g];
+                        break;
+                    }
+                }
+            }
+            if(estado_ant==0)estado=1;
+            else estado = 2;
+            break;
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=\footnotesize] 
+            //Suena toda la canción//
+               case 6:
+
+            adelante = 0;
+            TimerEnable(TIMER1_BASE, TIMER_A);  //activo interrupción
+            while(adelante==0);                 //espero a que acabe
+
+            TimerDisable(TIMER1_BASE, TIMER_A); //desactivo interrupción
+            if (estado_ant == 2) estado = 5; //recupera la matriz del compas por el que iba
+            if (estado_ant == 1) estado = 1;
+            break;
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=\footnotesize] 
+            //Recuperar matrices de la flash//
+
+        case 7:
+            for(compasg = 1; compasg<=CompasMAX; compasg = compasg+4){
+                if(boton_volver==0) leeMemoria();
+
+                for(j = 0; j<8; j++){
+                    for(g = 0; g<8; g++){
+                        switch (compasg){
+                        case 1:
+                            matriz1[j][g] = matriz[j][g];
+                            break;
+                        case 5:
+                            matriz2[j][g] = matriz[j][g];
+                            break;
+                        case 9:
+                            matriz3[j][g] = matriz[j][g];
+                            break;
+                        case 13:
+                            matriz4[j][g] = matriz[j][g];
+                            break;
+                        case 17:
+                            matriz5[j][g] = matriz[j][g];
+                            break;
+                        case 21:
+                            matriz6[j][g] = matriz[j][g];
+                            break;
+                        case 25:
+                            matriz7[j][g] = matriz[j][g];
+                            break;
+
+                        }
+                    }
+                }
+            }
+            if(boton_volver==1) estado = 0;
+            else if(boton_guardar==1) estado = 3;
+            else
+            {
+                boton_volver=0;
+                estado=5;
+            }
+            break;
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=\footnotesize] 
+            //Guardar la matriz completa//
+
+        case 8:
+            for(compasg = 1; compasg<=CompasMAX; compasg = compasg+4){
+                for(j = 0;j<8;j++){
+                    for(g = 0; g<8; g++){
+                        switch (compasg){
+                        case 1:
+                            matriz[j][g] = matriz1[j][g];
+                            break;
+                        case 5:
+                            matriz[j][g] = matriz2[j][g];
+                            break;
+                        case 9:
+                            matriz[j][g] = matriz3[j][g];
+                            break;
+                        case 13:
+                            matriz[j][g] = matriz4[j][g];
+                            break;
+                        case 17:
+                            matriz[j][g] = matriz5[j][g];
+                            break;
+                        case 21:
+                            matriz[j][g] = matriz6[j][g];
+                            break;
+                        case 25:
+                            matriz[j][g] = matriz7[j][g];
+                            break;
+
+                        }
+                    }
+                }
+                guardaTeclas();
+            }
+            borraMatriz();
+            estado = 7; //Estado que muestra si se ha guardado la canción
+            break;
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=\footnotesize]
+            //Mensaje de error al modificar canción//
+
+        case 9:
+            Nueva_pantalla(0x10,0x10,0x10);
+            ComGradient(0,0,0xdeebf4,0,240,0x619fc9);
+            ComTXT(HSIZE/2, 3*VSIZE/7, 27, OPT_CENTERX, "Ya has escrito una cancion aqui");
+            if(Boton(HSIZE/2, 5*VSIZE/7, 50, 20, 27, "OK")) estado=0;
+            else estado = 9;
+            Dibuja();
+            break;
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=\footnotesize]
+            //Mensaje de error al no tener canción//
+
+        case 10:
+            Nueva_pantalla(0x10,0x10,0x10);
+            ComGradient(0,0,0xdeebf4,0,240,0x619fc9);
+            ComTXT(HSIZE/2, 3*VSIZE/7, 27, OPT_CENTERX, "No has guardado nada que ver aqui");
+            if(Boton(HSIZE/2, 5*VSIZE/7, 50, 20, 27, "OK")) estado=0;
+            else estado = 10;
+            Dibuja();
+            break;
+        }
+    }
+}
+\end{lstlisting}
+\subsection{Librerías}
+Este el código con las funciones creadas y añadidas a la librería \textbf{ft800tiva}
+
+\begin{lstlisting}[basicstyle=\footnotesize]
+volatile int filas[7][8]={0,0,0,0,0,0,0,0,
+                          0,0,0,0,0,0,0,0,
+                          0,0,0,0,0,0,0,0,
+                          0,0,0,0,0,0,0,0,
+                          0,0,0,0,0,0,0,0,
+                          0,0,0,0,0,0,0,0,
+                          0,0,0,0,0,0,0,0};
+volatile char n_cadena[];
+
+#define MSEC 40000
+#define dESTANDAR 500*MSEC
+
+volatile char altura[7] = {VSIZE/20, VSIZE/20+22, VSIZE/20+44, VSIZE/20+66, VSIZE/20+88, VSIZE/20+110, VSIZE/20+132};
+
+int detectaNota (int x, int y){
+    int a = 0;
+
+    Lee_pantalla();
+
+    if(POSX != 32768)  a = pintaDeteccion(x,y);
+
+    return a;
+}
+
+int pintaDeteccion(int x, int y){
+    //entra una vez por fila si se ha pulsado la pantalla
+    //comprueba si se ha pulsado en la fila, y si es así, en qué posición
+    int f;
+    int x_ini = 0;
+    if(POSY>(y) && POSY<(y+20)){ //Si he pulsado la fila
+
+        for (f=0;f<8;f++)
+        {
+            if (POSX>(x+21*f) && POSX<(x+20+21*f)) //y me encuentro en la primera columna
+            {
+                Comando(CMD_BEGIN_RECTS);
+                x_ini = x+21*f;
+                ComVertex2ff(x+21*f,    y);
+                ComVertex2ff(x+20+21*f, y+20);
+                Comando(CMD_END);
+
+            }
+        }
+    }
+
+    return x_ini;
+}
+
+void pintaTiempo(void){
+
+    ComColor(0xff,0xff,0xff);  //color tiempo
+
+    Comando(CMD_BEGIN_RECTS);           //Pintar rectángulo del fondo
+    ComVertex2ff(HSIZE/20 + 80,VSIZE/20); //DO
+    ComVertex2ff(HSIZE/20 + 246 ,VSIZE/20 + 20);
+
+    ComVertex2ff(HSIZE/20 + 80,VSIZE/20 + 22); //RE
+    ComVertex2ff(HSIZE/20 + 246,VSIZE/20 + 42);
+
+    ComVertex2ff(HSIZE/20 + 80,VSIZE/20 + 44); //MI
+    ComVertex2ff(HSIZE/20 + 246, VSIZE/20 + 64);
+
+    ComVertex2ff(HSIZE/20 + 80, VSIZE/20 + 66); //FA
+    ComVertex2ff(HSIZE/20 + 246, VSIZE/20 + 86);
+
+    ComVertex2ff(HSIZE/20 + 80, VSIZE/20 + 88); //SOL
+    ComVertex2ff(HSIZE/20 + 246, VSIZE/20 + 108);
+
+    ComVertex2ff(HSIZE/20 + 80, VSIZE/20 + 110); //LA
+    ComVertex2ff(HSIZE/20 + 246, VSIZE/20 + 130);
+
+    ComVertex2ff(HSIZE/20 + 80, VSIZE/20 + 132); //SI
+    ComVertex2ff(HSIZE/20 + 246, VSIZE/20 + 152);
+
+
+    ComColor(0,0,0);
+    ComVertex2ff(HSIZE/20 + 100, VSIZE/20); //DO
+    ComVertex2ff(HSIZE/20 + 101, VSIZE/20 + 152);
+
+    ComVertex2ff(HSIZE/20 + 121, VSIZE/20); //RE
+    ComVertex2ff(HSIZE/20 + 122, VSIZE/20 + 152);
+
+    ComVertex2ff(HSIZE/20 + 142, VSIZE/20); //MI
+    ComVertex2ff(HSIZE/20 + 143, VSIZE/20 + 152);
+
+    ComVertex2ff(HSIZE/20 + 163, VSIZE/20); //FA
+    ComVertex2ff(HSIZE/20 + 164, VSIZE/20 + 152);
+
+    ComVertex2ff(HSIZE/20 + 184, VSIZE/20); //SOL
+    ComVertex2ff(HSIZE/20 + 185, VSIZE/20 + 152);
+
+    ComVertex2ff(HSIZE/20 + 205, VSIZE/20); //LA
+    ComVertex2ff(HSIZE/20 + 206, VSIZE/20 + 152);
+
+    ComVertex2ff(HSIZE/20 + 226, VSIZE/20); //SI
+    ComVertex2ff(HSIZE/20 + 227, VSIZE/20 + 152);
+    Comando(CMD_END);
+}
+
+void cmd_slider(int16_t x,int16_t y,int16_t w,int16_t h,uint16_t options,uint16_t val,uint16_t range){
+    EscribeRam32(CMD_SLIDER);
+    EscribeRam16(x);
+    EscribeRam16(y);
+    EscribeRam16(w);
+    EscribeRam16(h);
+    EscribeRam16(options);
+    EscribeRam16(val);
+    EscribeRam16(range);
+    EscribeRam16(0);
+}
+
+int Selector(int16_t x,int16_t y,int16_t w,int16_t h, int val){
+    static int valor_calculado = 0;
+    int result;
+    int paso = 25;
+
+    Lee_pantalla();
+
+    if(POSX>=x && POSX<=(x+w) && POSY>=y && POSY<=(y+h)){
+        if (POSX<(x+paso/2)){
+            valor_calculado = 0;
+            result = dESTANDAR;}
+        else if (POSX<(x+3*paso/2)){
+            valor_calculado = paso;
+        result = dESTANDAR/2;}
+        else if (POSX<(x+5*paso/2)){
+            valor_calculado = paso*2;
+            result = dESTANDAR/3;}
+        else if (POSX<(x+7*paso/2)){
+            valor_calculado = paso*3;
+        result = dESTANDAR/4;}
+        else if (POSX<(x+10*paso/2)){
+            valor_calculado = paso*4;
+            result = dESTANDAR/5;}
+        cmd_slider(x,y,w,h,OPT_FLAT,valor_calculado,100);
+    }
+
+    else{
+        cmd_slider(x,y,w,h,0,valor_calculado,100);
+        result = val;
+    }
+    return result;
+}
+\end{lstlisting}
+
+\section{Gestión de trabajo}
+\subsection{Reparto de tareas}
+Para la gestión de información del proyecto se han utilizado varios programas, el más importante de ellos, GitHub, con el que se ha podido llevar a cabo un control de versiones tanto de los códigos como de la memoria. Además se ha utilizado la plataforma Discord para trabajar en paralelo y comunicarnos a la vez. Para la realización de la memoria se ha utilizado el software de composición de textos LATEX. Para la realización de la presentación se ha utilizado la herramienta de office, Power Point.
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width=8cm]{github.png}
+  \caption{Aplicación de GitHub}
+  \label{fig:img1}
+\end{figure}
+
+\newpage
+
+El proyecto se ha dividido en subtareas que se han ido realizando por una o ambas componentes del proyecto. Las subtareas realizadas han sido las siguientes:
+
+\begin{itemize}
+\item Creación de la interfaz
+\item Creación de varios menús
+\item Lectura de nota tocada
+\item Pintar nota tocada
+\item Borrado de nota con segundo toque 
+\item Reproducción de sonidos
+\item Reproducir de un compás
+\item Reproducir canción completa
+\item Guardar la matriz del primer medio compás 
+\item Guardar la matriz global de compases
+\item Imposibilitar tocar dos sonidos a la vez 
+\item Colores a los distintos instrumentos
+\item Añadir un botón de borrado del compás
+\item Añadir un botón de de borrado global 
+\item Añadir un control de volumen
+\item Añadir un control de la velocidad
+\item Guardar en la flash
+\item Recuperar notas de la flash
+\item Recuperar instrumentos desde la flash
+\item Memoria
+\item Presentación
+\end{itemize}
+
+
+\subsection{Cronograma}
+Las subtareas anteriores pueden ser englobadas en tareas más generales, tal y como se muestra en el diagrama siguiente.
+
+Se ha optado por dividirlas en tres grandes grupos: Orientación del proyecto, Síntesis del proyecto y Documentación.
+
+El proyecto se ha realizado de manera conjunta en su totalidad. En las primeras semanas se determinó el enfoque general del proyecto y se pusieron en común unos horarios para permitir el trabajo conjunto dentro de las distintas responsabilidades académicas y no académicas de sus integrantes. Estos horarios han sido muy flexibles dada la incompatibilidad general de ambas.
+
+
+\includepdf[landscape=true]{gantt.pdf}
+
+
+\newpage
+\section{Alcance y mejoras}
+Se puede decir que los objetivos marcados en este proyecto se han cumplido en su mayoría. Eso no quiere decir que se estén aprovechando al máximo los recursos que nos ofrece el microcontrolador TM4C1294. 
+
+Este trabajo es un prototipo de un sintetizador muy básico. Está dividido en funciones con intenciones muy claras y fácilmente modificables, de la misma manera que la máquina de estados permite bastante flexibilidad en cuanto a correcciones. De esta forma, se permite la mejora de las funcionalidades en un futuro sin comprometer las ya existentes.
+
+Las mejoras que nos hubiera gustado implementar en este proyecto son la permisión de la modificación de las canciones una vez guardadas (y sabemos cómo enfocarlo, pero nos faltó tiempo), la introducción de un menú de instrumentos más amplio y la posibilidad de ampliar los compases según se vaya avanzando en la canción.
+
+Pensamos que en otras circunstancias el resultado hubiera sido más pulido y completo, pero aun así estamos satisfechas con el trabajo realizado.
+
+
+%COMENTADO
+\begin{comment}
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width=10cm]{2_1.jpeg}
+  \caption{Pantalla de inicio}
+  \label{fig:img1}
+
+  \centering
+  \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{2_2.jpeg}
+
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{2_3.jpeg}
+
+  \end{subfigure}
+  \label{fig:units}
+
+
+  \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{2_4.jpeg}
+
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{2_5.jpeg}
+
+
+  \end{subfigure}
+  \label{fig:units}
+
+\end{figure}
+
+\end{comment}
+
+%\begin{lstlisting}[basicstyle=\footnotesize]
+
+%\end{lstlisting}
+
+%\begin{figure}[h!]
+%  \includegraphics[width=8cm]{hola.jpeg}
+%  \caption{Esquema}
+%  \label{fig:img1}
+%\end{figure}
+%\begin{figure}[h!]
+%  \includegraphics[width=8cm]{2.jpeg}
+%  \caption{Esquema}
+%  \label{fig:img1}
+%\end{figure}
+
+\end{document}
