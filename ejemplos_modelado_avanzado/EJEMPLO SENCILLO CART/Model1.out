@@ -1,0 +1,63 @@
+SIMAN Run Controller.
+
+8.8195842 Minutes>
+                                      ARENA Simulation Results
+                                      Adolfo - License: STUDENT
+
+                                  Summary for Replication 1 of 1
+
+Project: Unnamed Project                                             Run execution date : 1/12/2021
+Analyst: Windows User                                                Model revision date: 1/12/2021
+
+Replication ended at time      : 8.8195842 Minutes 
+Base Time Units: Minutes
+
+                                           TALLY VARIABLES
+
+Identifier                                  Average   Half Width  Minimum    Maximum   Observations
+___________________________________________________________________________________________________
+
+Entidad 1.VATime                                --         --         --         --          0
+Entidad 1.NVATime                               --         --         --         --          0
+Entidad 1.WaitTime                              --         --         --         --          0
+Entidad 1.TranTime                              --         --         --         --          0
+Entidad 1.OtherTime                             --         --         --         --          0
+Entidad 1.TotalTime                             --         --         --         --          0
+Allocate 1.Queue.WaitingTime                .00000     (Insuf)    .00000     .00000          1    
+Process 1.Queue.WaitingTime                 .00339     (Insuf)    .00000     .00678          2    
+Leave 1.Queue.WaitingTime                   .00000     (Insuf)    .00000     .00000          3    
+
+                                     DISCRETE-CHANGE VARIABLES
+
+Identifier                                  Average   Half Width  Minimum    Maximum   Final Value
+___________________________________________________________________________________________________
+
+Entidad 1.WIP                               2.0502     (Insuf)    .00000     4.0000     4.0000    
+Machine 1.NumberBusy                        .68713     (Insuf)    .00000     1.0000     .00000    
+Machine 1.NumberScheduled                   1.0000     (Insuf)    1.0000     1.0000     1.0000    
+Machine 1.Utilization                       .68713     (Insuf)    .00000     1.0000     .00000    
+Allocate 1.Queue.NumberInQueue              .07476     (Insuf)    .00000     1.0000     1.0000    
+Process 1.Queue.NumberInQueue               7.6842E-04 (Insuf)    .00000     1.0000     .00000    
+Leave 1.Queue.NumberInQueue                 .14161     (Insuf)    .00000     1.0000     1.0000    
+
+                                             COUNTERS
+
+Identifier                                    Count   Limit
+_____________________________________________________________
+
+Contador salida                                   0  Infinite
+
+                                             OUTPUTS
+
+Identifier                                   Value
+_____________________________________________________________
+
+Entidad 1.NumberIn                          4.0000    
+Entidad 1.NumberOut                         .00000    
+Machine 1.NumberSeized                      2.0000    
+Machine 1.ScheduledUtilization              .68713    
+System.NumberOut                            .00000    
+
+
+Simulation run time: 0.60 minutes.
+Simulation run complete.

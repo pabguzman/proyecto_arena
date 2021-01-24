@@ -1,0 +1,154 @@
+SIMAN Run Controller.
+
+5.4047297 Minutes>SIMAN Run Controller.
+
+13.133887 Minutes>SIMAN Run Controller.
+
+22.813632 Minutes>SIMAN Run Controller.
+
+27.569067 Minutes>SIMAN Run Controller.
+
+35.285894 Minutes>SIMAN Run Controller.
+
+56.766625 Minutes>
+                                      ARENA Simulation Results
+                                      Adolfo - License: STUDENT
+
+                                  Summary for Replication 1 of 1
+
+Project: Small Manufacturing System                                  Run execution date : 1/12/2021
+Analyst: Kelton                                                      Model revision date: 1/12/2021
+
+Replication ended at time      : 56.766625 Minutes 
+Base Time Units: Minutes
+
+                                           TALLY VARIABLES
+
+Identifier                                  Average   Half Width  Minimum    Maximum   Observations
+___________________________________________________________________________________________________
+
+Cell 4 Process.VATimePerEntity                  --         --         --         --          0
+Cell 3 Process.VATimePerEntity              14.052     (Insuf)    14.052     14.052          1    
+Cell 2 Process.VATimePerEntity              7.7950     (Insuf)    6.8011     8.7889          2    
+Cell 1 Process.VATimePerEntity              10.421     (Insuf)    6.9691     13.874          2    
+Cell 4 Process.WaitTimePerEntity                --         --         --         --          0
+Cell 3 Process.WaitTimePerEntity            .00000     (Insuf)    .00000     .00000          1    
+Cell 2 Process.WaitTimePerEntity            .00000     (Insuf)    .00000     .00000          2    
+Cell 1 Process.WaitTimePerEntity            .00000     (Insuf)    .00000     .00000          2    
+Cell 4 Process.TotalTimePerEntity               --         --         --         --          0
+Cell 3 Process.TotalTimePerEntity           14.052     (Insuf)    14.052     14.052          1    
+Cell 2 Process.TotalTimePerEntity           7.7950     (Insuf)    6.8011     8.7889          2    
+Cell 1 Process.TotalTimePerEntity           10.421     (Insuf)    6.9691     13.874          2    
+Entity 1.VATime                                 --         --         --         --          0
+Entity 1.NVATime                                --         --         --         --          0
+Entity 1.WaitTime                               --         --         --         --          0
+Entity 1.TranTime                               --         --         --         --          0
+Entity 1.OtherTime                              --         --         --         --          0
+Entity 1.TotalTime                              --         --         --         --          0
+Part 2.VATime                                   --         --         --         --          0
+Part 2.NVATime                                  --         --         --         --          0
+Part 2.WaitTime                                 --         --         --         --          0
+Part 2.TranTime                                 --         --         --         --          0
+Part 2.OtherTime                                --         --         --         --          0
+Part 2.TotalTime                                --         --         --         --          0
+Part 3.VATime                                   --         --         --         --          0
+Part 3.NVATime                                  --         --         --         --          0
+Part 3.WaitTime                                 --         --         --         --          0
+Part 3.TranTime                                 --         --         --         --          0
+Part 3.OtherTime                                --         --         --         --          0
+Part 3.TotalTime                                --         --         --         --          0
+Part 1.VATime                                   --         --         --         --          0
+Part 1.NVATime                                  --         --         --         --          0
+Part 1.WaitTime                                 --         --         --         --          0
+Part 1.TranTime                                 --         --         --         --          0
+Part 1.OtherTime                                --         --         --         --          0
+Part 1.TotalTime                                --         --         --         --          0
+
+                                     DISCRETE-CHANGE VARIABLES
+
+Identifier                                  Average   Half Width  Minimum    Maximum   Final Value
+___________________________________________________________________________________________________
+
+Total WIP                                   1.7883     (Insuf)    .00000     2.0000     2.0000    
+Entity 1.WIP                                .00000     (Insuf)    .00000     1.0000     .00000    
+Part 2.WIP                                  .88359     (Insuf)    .00000     1.0000     1.0000    
+Part 3.WIP                                  .00000     (Insuf)    .00000     .00000     .00000    
+Part 1.WIP                                  .90479     (Insuf)    .00000     1.0000     1.0000    
+Cell 4 Machine.NumberBusy                   .35409     (Insuf)    .00000     1.0000     1.0000    
+Cell 4 Machine.NumberScheduled              1.0000     (Insuf)    1.0000     1.0000     1.0000    
+Cell 4 Machine.Utilization                  .35409     (Insuf)    .00000     1.0000     1.0000    
+Cell 2 Machine.NumberBusy                   .27463     (Insuf)    .00000     1.0000     .00000    
+Cell 2 Machine.NumberScheduled              1.0000     (Insuf)    1.0000     1.0000     1.0000    
+Cell 2 Machine.Utilization                  .27463     (Insuf)    .00000     1.0000     .00000    
+Cell 1 Machine.NumberBusy                   .36718     (Insuf)    .00000     1.0000     .00000    
+Cell 1 Machine.NumberScheduled              1.0000     (Insuf)    1.0000     1.0000     1.0000    
+Cell 1 Machine.Utilization                  .36718     (Insuf)    .00000     1.0000     .00000    
+Cell 3 Old.NumberBusy                       .00000     (Insuf)    .00000     .00000     .00000    
+Cell 3 Old.NumberScheduled                  1.0000     (Insuf)    1.0000     1.0000     1.0000    
+Cell 3 Old.Utilization                      .00000     (Insuf)    .00000     .00000     .00000    
+Cell 3 New.NumberBusy                       .24754     (Insuf)    .00000     1.0000     .00000    
+Cell 3 New.NumberScheduled                  1.0000     (Insuf)    1.0000     1.0000     1.0000    
+Cell 3 New.Utilization                      .24754     (Insuf)    .00000     1.0000     .00000    
+Cell 1.NumEntTrans                          .12014     (Insuf)    .00000     1.0000     .00000    
+Cell 3.NumEntTrans                          .00828     (Insuf)    .00000     1.0000     .00000    
+Cell 2.NumEntTrans                          .01421     (Insuf)    .00000     1.0000     .00000    
+Cell 4.NumEntTrans                          .02237     (Insuf)    .00000     1.0000     .00000    
+Order Release.NumEntTrans                   .00000     (Insuf)    .00000     .00000     .00000    
+Exit System.NumEntTrans                     .00000     (Insuf)    .00000     .00000     .00000    
+
+                                             OUTPUTS
+
+Identifier                                   Value
+_____________________________________________________________
+
+Cell 4 Process Accum VA Time                .00000    
+Cell 3 Process Accum VA Time                14.052    
+Cell 2 Process Accum VA Time                15.590    
+Cell 1 Process Accum VA Time                20.843    
+Cell 4 Process Number In                    2.0000    
+Cell 3 Process Number In                    1.0000    
+Cell 2 Process Number In                    2.0000    
+Cell 1 Process Number In                    2.0000    
+Cell 4 Process Number Out                   .00000    
+Cell 3 Process Number Out                   1.0000    
+Cell 2 Process Number Out                   2.0000    
+Cell 1 Process Number Out                   2.0000    
+Cell 4 Process Accum Wait Time              .00000    
+Cell 3 Process Accum Wait Time              .00000    
+Cell 2 Process Accum Wait Time              .00000    
+Cell 1 Process Accum Wait Time              .00000    
+Entity 1.NumberIn                           2.0000    
+Entity 1.NumberOut                          2.0000    
+Part 2.NumberIn                             1.0000    
+Part 2.NumberOut                            .00000    
+Part 3.NumberIn                             .00000    
+Part 3.NumberOut                            .00000    
+Part 1.NumberIn                             1.0000    
+Part 1.NumberOut                            .00000    
+Cell 4 Machine.NumberSeized                 1.0000    
+Cell 4 Machine.ScheduledUtilization         .35409    
+Cell 2 Machine.NumberSeized                 2.0000    
+Cell 2 Machine.ScheduledUtilization         .27463    
+Cell 1 Machine.NumberSeized                 2.0000    
+Cell 1 Machine.ScheduledUtilization         .36718    
+Cell 3 Old.NumberSeized                     .00000    
+Cell 3 Old.ScheduledUtilization             .00000    
+Cell 3 New.NumberSeized                     1.0000    
+Cell 3 New.ScheduledUtilization             .24754    
+System.NumberOut                            .00000    
+
+                                           FREQUENCIES
+
+                                                            --Occurrences--    Standard  Restricted
+Identifier                                 Category         Number  AvgTime    Percent   Percent
+___________________________________________________________________________________________________
+
+State Cell 1                               BUSY             2       10.421       36.72     36.72
+                                           IDLE             3       11.974       63.28     63.28
+
+State Cell 3 machine 2                     IDLE             1       56.766      100.00    100.00
+
+
+
+Simulation run time: 2.30 minutes.
+Simulation run complete.

@@ -1,0 +1,12 @@
+[RESOURCES]
+Maquina procesado
+[VARIABLES]
+Proceso.NumberOut
+Crear Parte B.NumberOut
+Proceso.NumberIn
+Contador parteC
+Contador parteB
+Contador parteA
+Dispose 1.NumberOut
+Dispose 4.NumberOut
+Crear Parte A.NumberOut

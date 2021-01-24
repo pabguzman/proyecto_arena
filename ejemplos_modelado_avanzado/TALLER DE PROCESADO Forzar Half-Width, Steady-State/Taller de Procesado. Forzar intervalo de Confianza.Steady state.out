@@ -1,0 +1,147 @@
+
+                                      ARENA Simulation Results
+                                   Windows User - License: STUDENT
+
+                                  Summary for Replication 1 of 1
+
+Project: Small Manufacturing System                                  Run execution date :10/14/2018
+Analyst: Kelton                                                      Model revision date:10/14/2018
+
+Replication ended at time      : 22434.864 Minutes 
+Statistics were cleared at time: 1440.0 Minutes (Monday, October 15, 2018, 00:00:00)
+Statistics accumulated for time: 20994.864 Minutes
+Base Time Units: Minutes
+
+                                           TALLY VARIABLES
+
+Identifier                                  Average   Half Width  Minimum    Maximum   Observations
+___________________________________________________________________________________________________
+
+Cell 4 Process.VATimePerEntity              15.793     .15160     8.2997     20.804       1217    
+Cell 3 Process.VATimePerEntity              23.873     .27009     12.174     38.722       1613    
+Cell 2 Process.VATimePerEntity              7.8033     .05487     4.0875     11.792       2376    
+Cell 1 Process.VATimePerEntity              10.842     .11693     6.1133     14.906       1616    
+Cell 4 Process.WaitTimePerEntity            23.120     5.1300     .00000     114.06       1217    
+Cell 3 Process.WaitTimePerEntity            11.075     (Corr)     .00000     52.105       1613    
+Cell 2 Process.WaitTimePerEntity            6.2321     .74828     .00000     38.951       2376    
+Cell 1 Process.WaitTimePerEntity            4.7036     .51655     .00000     22.503       1616    
+Cell 4 Process.TotalTimePerEntity           38.914     5.1734     8.2997     131.16       1217    
+Cell 3 Process.TotalTimePerEntity           34.949     2.1583     12.859     80.324       1613    
+Cell 2 Process.TotalTimePerEntity           14.035     .77416     4.2237     49.576       2376    
+Cell 1 Process.TotalTimePerEntity           15.546     .56206     6.5397     35.901       1616    
+Entity 1.VATime                                 --         --         --         --          0
+Entity 1.NVATime                                --         --         --         --          0
+Entity 1.WaitTime                               --         --         --         --          0
+Entity 1.TranTime                               --         --         --         --          0
+Entity 1.OtherTime                              --         --         --         --          0
+Entity 1.TotalTime                              --         --         --         --          0
+Part 2.VATime                               78.257     (Corr)     66.809     91.364        763    
+Part 2.NVATime                              .00000     .00000     .00000     .00000        763    
+Part 2.WaitTime                             49.837     7.1486     .90950     152.16        763    
+Part 2.TranTime                             7.2419     .03991     6.0000     9.5024        763    
+Part 2.OtherTime                            .00000     .00000     .00000     .00000        763    
+Part 2.TotalTime                            135.33     7.1790     81.857     237.30        763    
+Part 3.VATime                               41.338     .35681     34.152     50.997        397    
+Part 3.NVATime                              .00000     .00000     .00000     .00000        397    
+Part 3.WaitTime                             23.569     3.0529     .00000     76.979        397    
+Part 3.TranTime                             7.2396     .06694     6.0000     9.6677        397    
+Part 3.OtherTime                            .00000     .00000     .00000     .00000        397    
+Part 3.TotalTime                            72.147     3.1101     43.220     125.03        397    
+Part 1.VATime                               48.255     .33448     39.544     57.345        454    
+Part 1.NVATime                              .00000     .00000     .00000     .00000        454    
+Part 1.WaitTime                             46.168     6.4073     .06537     136.28        454    
+Part 1.TranTime                             4.3288     .03037     3.6000     6.0574        454    
+Part 1.OtherTime                            .00000     .00000     .00000     .00000        454    
+Part 1.TotalTime                            98.753     6.4034     52.633     188.24        454    
+
+                                     DISCRETE-CHANGE VARIABLES
+
+Identifier                                  Average   Half Width  Minimum    Maximum   Final Value
+___________________________________________________________________________________________________
+
+Total WIP                                   8.4279     .51663     4.0000     16.000     9.0000    
+Entity 1.WIP                                .00000     (Insuf)    .00000     1.0000     .00000    
+Part 2.WIP                                  4.9250     .48563     1.0000     12.000     7.0000    
+Part 3.WIP                                  1.3631     .11953     .00000     5.0000     .00000    
+Part 1.WIP                                  2.1396     .20610     .00000     6.0000     2.0000    
+Cell 4 Machine.NumberBusy                   .91496     .02676     .00000     1.0000     1.0000    
+Cell 4 Machine.NumberScheduled              1.0000     (Insuf)    1.0000     1.0000     1.0000    
+Cell 4 Machine.Utilization                  .91496     .02676     .00000     1.0000     1.0000    
+Cell 2 Machine.NumberBusy                   .88333     .00994     .00000     1.0000     1.0000    
+Cell 2 Machine.NumberScheduled              1.0000     (Insuf)    1.0000     1.0000     1.0000    
+Cell 2 Machine.Utilization                  .88333     .00994     .00000     1.0000     1.0000    
+Cell 1 Machine.NumberBusy                   .83432     .00930     .00000     1.0000     1.0000    
+Cell 1 Machine.NumberScheduled              1.0000     (Insuf)    1.0000     1.0000     1.0000    
+Cell 1 Machine.Utilization                  .83432     .00930     .00000     1.0000     1.0000    
+Cell 3 Old.NumberBusy                       .92067     .01130     .00000     1.0000     1.0000    
+Cell 3 Old.NumberScheduled                  1.0000     (Insuf)    1.0000     1.0000     1.0000    
+Cell 3 Old.Utilization                      .92067     .01130     .00000     1.0000     1.0000    
+Cell 3 New.NumberBusy                       .91379     (Corr)     .00000     1.0000     1.0000    
+Cell 3 New.NumberScheduled                  1.0000     (Insuf)    1.0000     1.0000     1.0000    
+Cell 3 New.Utilization                      .91379     (Corr)     .00000     1.0000     1.0000    
+Cell 1.NumEntTrans                          .06483     .00277     .00000     2.0000     .00000    
+Cell 3.NumEntTrans                          .07085     .00161     .00000     2.0000     .00000    
+Cell 2.NumEntTrans                          .11288     .00250     .00000     3.0000     .00000    
+Cell 4.NumEntTrans                          .06667     (Corr)     .00000     2.0000     .00000    
+Order Release.NumEntTrans                   .00000     (Insuf)    .00000     .00000     .00000    
+Exit System.NumEntTrans                     .17834     .00275     .00000     3.0000     .00000    
+
+                                             OUTPUTS
+
+Identifier                                   Value
+_____________________________________________________________
+
+Cell 4 Process Accum VA Time                19220.    
+Cell 3 Process Accum VA Time                38508.    
+Cell 2 Process Accum VA Time                18540.    
+Cell 1 Process Accum VA Time                17521.    
+Cell 4 Process Number In                    1218.0    
+Cell 3 Process Number In                    1613.0    
+Cell 2 Process Number In                    2378.0    
+Cell 1 Process Number In                    1615.0    
+Cell 4 Process Number Out                   1217.0    
+Cell 3 Process Number Out                   1613.0    
+Cell 2 Process Number Out                   2376.0    
+Cell 1 Process Number Out                   1616.0    
+Cell 4 Process Accum Wait Time              28138.    
+Cell 3 Process Accum Wait Time              17864.    
+Cell 2 Process Accum Wait Time              14807.    
+Cell 1 Process Accum Wait Time              7601.1    
+Entity 1.NumberIn                           1615.0    
+Entity 1.NumberOut                          1615.0    
+Part 2.NumberIn                             764.00    
+Part 2.NumberOut                            763.00    
+Part 3.NumberIn                             396.00    
+Part 3.NumberOut                            397.00    
+Part 1.NumberIn                             455.00    
+Part 1.NumberOut                            454.00    
+Cell 4 Machine.NumberSeized                 1217.0    
+Cell 4 Machine.ScheduledUtilization         .91496    
+Cell 2 Machine.NumberSeized                 2376.0    
+Cell 2 Machine.ScheduledUtilization         .88333    
+Cell 1 Machine.NumberSeized                 1616.0    
+Cell 1 Machine.ScheduledUtilization         .83432    
+Cell 3 Old.NumberSeized                     724.00    
+Cell 3 Old.ScheduledUtilization             .92067    
+Cell 3 New.NumberSeized                     889.00    
+Cell 3 New.ScheduledUtilization             .91379    
+System.NumberOut                            1614.0    
+
+                                           FREQUENCIES
+
+                                                            --Occurrences--    Standard  Restricted
+Identifier                                 Category         Number  AvgTime    Percent   Percent
+___________________________________________________________________________________________________
+
+State Cell 1                               BUSY             544     32.199       83.43     83.43
+                                           IDLE             530     6.4656       16.32     16.32
+                                           FAILED           23      2.2455        0.25      0.25
+
+State Cell 3 machine 2                     BUSY             190     101.73       92.07     92.07
+                                           IDLE             174     8.0871        6.70      6.70
+                                           FAILED           27      9.5697        1.23      1.23
+
+
+
+Simulation run time: 0.03 minutes.
+Simulation run complete.

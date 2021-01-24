@@ -1,0 +1,32 @@
+[RESOURCES]
+Cell 4 Machine
+Cell 2 Machine
+Cell 1 Machine
+Cell 3 Old
+Cell 3 New
+[VARIABLES]
+Capacidad Maq 3 Nueva
+Cell 4 Process.VATime
+Cell 3 Process.VATime
+Cell 2 Process.VATime
+Cell 1 Process.VATime
+Cell 4 Process.NumberIn
+Cell 3 Process.NumberIn
+Cell 2 Process.NumberIn
+Cell 1 Process.NumberIn
+Cell 4 Process.NumberOut
+Cell 3 Process.NumberOut
+Cell 2 Process.NumberOut
+Cell 1 Process.NumberOut
+Create Parts.NumberOut
+Dispose of Part.NumberOut
+Cell 4 Process.WaitTime
+Cell 3 Process.WaitTime
+Cell 2 Process.WaitTime
+Cell 1 Process.WaitTime
+Capacidad Maquina 4
+Capacidad Maquina 1
+Capacidad Maquina 2
+Load Time
+Unload Time
+Factor

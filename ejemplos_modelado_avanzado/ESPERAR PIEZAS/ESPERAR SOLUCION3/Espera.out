@@ -1,0 +1,77 @@
+SIMAN Run Controller.
+
+0.099884382 Hours>
+                                      ARENA Simulation Results
+                                      Adolfo - License: STUDENT
+
+                                  Summary for Replication 1 of 1
+
+Project: Unnamed Project                                             Run execution date : 1/11/2021
+Analyst: Windows User                                                Model revision date: 1/11/2021
+
+Replication ended at time      : 0.099884382 Hours 
+Base Time Units: Hours
+
+                                           TALLY VARIABLES
+
+Identifier                                  Average   Half Width  Minimum    Maximum   Observations
+___________________________________________________________________________________________________
+
+Part B.VATime                                   --         --         --         --          0
+Part B.NVATime                                  --         --         --         --          0
+Part B.WaitTime                                 --         --         --         --          0
+Part B.TranTime                                 --         --         --         --          0
+Part B.OtherTime                                --         --         --         --          0
+Part B.TotalTime                                --         --         --         --          0
+Parte C.VATime                              .03961     (Insuf)    .03961     .03961          1    
+Parte C.NVATime                             .00000     (Insuf)    .00000     .00000          1    
+Parte C.WaitTime                            .00000     (Insuf)    .00000     .00000          1    
+Parte C.TranTime                            .00000     (Insuf)    .00000     .00000          1    
+Parte C.OtherTime                           .00000     (Insuf)    .00000     .00000          1    
+Parte C.TotalTime                           .03961     (Insuf)    .03961     .03961          1    
+Parte A.VATime                              .00000     (Insuf)    .00000     .00000         10    
+Parte A.NVATime                             .00000     (Insuf)    .00000     .00000         10    
+Parte A.WaitTime                            .00000     (Insuf)    .00000     .00000         10    
+Parte A.TranTime                            .00000     (Insuf)    .00000     .00000         10    
+Parte A.OtherTime                           .00000     (Insuf)    .00000     .00000         10    
+Parte A.TotalTime                           .00000     (Insuf)    .00000     .00000         10    
+Proceso.Queue.WaitingTime                   .01424     (Insuf)    .00000     .02848          2    
+
+                                     DISCRETE-CHANGE VARIABLES
+
+Identifier                                  Average   Half Width  Minimum    Maximum   Final Value
+___________________________________________________________________________________________________
+
+Part B.WIP                                  .00000     (Insuf)    .00000     1.0000     .00000    
+Parte C.WIP                                 1.4589     (Insuf)    .00000     2.0000     2.0000    
+Parte A.WIP                                 .00000     (Insuf)    .00000     1.0000     .00000    
+Maquina procesado.NumberBusy                1.0000     (Insuf)    .00000     1.0000     1.0000    
+Maquina procesado.NumberScheduled           1.0000     (Insuf)    1.0000     1.0000     1.0000    
+Maquina procesado.Utilization               1.0000     (Insuf)    .00000     1.0000     1.0000    
+Proceso.Queue.NumberInQueue                 .45899     (Insuf)    .00000     1.0000     1.0000    
+
+                                             COUNTERS
+
+Identifier                                    Count   Limit
+_____________________________________________________________
+
+Contador salida#                                  1  Infinite
+
+                                             OUTPUTS
+
+Identifier                                   Value
+_____________________________________________________________
+
+Part B.NumberIn                             3.0000    
+Part B.NumberOut                            3.0000    
+Parte C.NumberIn                            3.0000    
+Parte C.NumberOut                           1.0000    
+Parte A.NumberIn                            10.000    
+Parte A.NumberOut                           10.000    
+Maquina procesado.NumberSeized              2.0000    
+Maquina procesado.ScheduledUtilization      1.0000    
+System.NumberOut                            11.000    
+
+
+Simulation run time: 0.23 minutes.
+Simulation run complete.

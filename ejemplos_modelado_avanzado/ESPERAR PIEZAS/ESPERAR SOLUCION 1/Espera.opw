@@ -1,0 +1,14 @@
+[RESOURCES]
+Maquina procesado
+[VARIABLES]
+Proceso.NumberOut
+Crear Parte B.NumberOut
+Proceso.NumberIn
+Contador parteC
+Contador parteB
+Contador parteA
+Dispose 2.NumberOut
+Dispose 1.NumberOut
+Crear Parte A.NumberOut
+¿Hay al menos una entidad de cada?.NumberOut False
+¿Hay al menos una entidad de cada?.NumberOut True

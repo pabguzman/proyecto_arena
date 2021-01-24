@@ -1,0 +1,15 @@
+[RESOURCES]
+Maquina procesado
+[VARIABLES]
+Crear Parte B.NumberOut
+Contador parteC
+Contador parteB
+Contador parteA
+Dispose 2.NumberOut
+Proceso 1.NumberOut
+Dispose 1.NumberOut
+Proceso 1.NumberIn
+Crear Parte A.NumberOut
+Borrar la cola Hold.NumberRemoved
+Borrar la cola Hold.BestIndex
+Borrar la cola Hold.MinMax
